@@ -1,3 +1,4 @@
+#Table creation
 CREATE TABLE Tables
 (
     Id SMALLINT NOT NULL AUTO_INCREMENT,
@@ -64,8 +65,12 @@ CREATE TABLE Item
 CREATE TABLE ItemXItemEffect
 (
     Id SMALLINT NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(20),
-    PRIMARY KEY (Id)
+    ItemId SMALLINT,
+    ItemEffectId SMALLINT,
+    Modifier SMALLINT,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemId) REFERENCES Item(Id),
+    FOREIGN KEY (ItemEffectId) REFERENCES ItemEffect(Id)
 );
 
 CREATE TABLE ItemCategory
@@ -78,6 +83,70 @@ CREATE TABLE ItemCategory
 CREATE TABLE Rarity
 (
     Id SMALLINT NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(20),
+    Name VARCHAR(20) NOT NULL,
+    Color VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Id)
+);
+# 10
+CREATE TABLE BlueprintXItemNeeded
+(
+    Id SMALLINT NOT NULL AUTO_INCREMENT,
+    BlueprintItemId SMALLINT NOT NULL,
+    ItemNeededId SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (BlueprintItemId) REFERENCES Item(Id),
+    FOREIGN KEY (ItemNeededId) REFERENCES Item(Id)
+);
+
+CREATE TABLE Crafting
+(
+    Id SMALLINT NOT NULL AUTO_INCREMENT,
+    BlueprintItemId SMALLINT NOT NULL,
+    ResultItemId SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (BlueprintItemId) REFERENCES  Item(Id),
+    FOREIGN KEY (ResultItemId) REFERENCES  Item(Id)
+
+);
+
+CREATE TABLE Skin
+(
+    Id SMALLINT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL,
+    ItemId SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemId) REFERENCES Item(Id)
+);
+
+CREATE TABLE InventoryXItem
+(
+    Id SMALLINT NOT NULL AUTO_INCREMENT,
+    InventoryId SMALLINT NOT NULL,
+    ItemId SMALLINT NOT NULL,
+    Count SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemId) REFERENCES Item(Id),
+    FOREIGN KEY (InventoryId) REFERENCES Inventory(Id)
+);
+
+CREATE TABLE EquippedSkin
+(
+    Id SMALLINT NOT NULL AUTO_INCREMENT,
+    SkinId SMALLINT NOT NULL,
+    InventoryXItemId SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (InventoryXItemId) REFERENCES InventoryXItem(Id),
+    FOREIGN KEY (SkinId) REFERENCES Skin(Id)
+);
+
+CREATE TABLE Economy
+(
+    CoinValue SMALLINT NOT NULL
+);
+
+CREATE TABLE Kingdom
+(
+    Id SMALLINT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL,
     PRIMARY KEY (Id)
 );
