@@ -1,3 +1,4 @@
 1.Changes to the schema:
   -Remove Role (there is already RoleId) from NPC
   -Rename EffectId to ItemEffectId in Item
+  -Move IsEquipped from Item to InventoryXItem
