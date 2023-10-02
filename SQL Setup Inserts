@@ -1,0 +1,29 @@
+INSERT INTO ActionHouse(Name, BuyModifier, SellModifier)
+VALUES('RaciborzMarket', 5, 10)
+     ,('WarszawaMarket', 4, 5)
+     ,('CiechanowMarket', 2, 6)
+     ,('TorunMarket', 3, 8)
+     ,('TczewMarket', 5, 10);
+
+INSERT INTO ItemCategory(Name)
+VALUES('Blueprint')
+     , ('Ligh tArmor')
+     , ('Heavy Armor')
+     , ('OneUse')
+     , ('One Hand Weapon')
+     ,('Two Hand Weapon')
+     , ('Ranged Weapon');
+
+INSERT INTO Rarity (Name, Color)
+VALUES('Common', '#959CA1')
+     ,('Uncommon', '#53A801')
+     ,('Rare', '#0097E1')
+     ,('Epic', '#A24BC9')
+     ,('Legendary', '#D97C2A');
+
+INSERT INTO Item(Name, ItemCategoryId, RarityId, Cost)
+VALUES('Hoe Blueprint', 1, 3, 128)
+,('Wooden Armor', 2, 1, 128)
+,('Torch', 4, 1, 128)
+,('Wooden Spear', 5, 3, 128)
+,('Wooden Hammer', 5, 3, 128);
