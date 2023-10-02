@@ -1,0 +1,2 @@
+1.Chages to the schema:
+  -Remove Role (there is already RoleId) from NPC
