@@ -12,7 +12,8 @@ VALUES('Blueprint')
      , ('OneUse')
      , ('One Hand Weapon')
      ,('Two Hand Weapon')
-     , ('Ranged Weapon');
+     , ('Ranged Weapon')
+    ,('Crafting Material');
 
 INSERT INTO Rarity (Name, Color)
 VALUES('Common', '#959CA1')
@@ -27,3 +28,112 @@ VALUES('Hoe Blueprint', 1, 3, 128)
 ,('Torch', 4, 1, 128)
 ,('Wooden Spear', 5, 3, 128)
 ,('Wooden Hammer', 5, 3, 128);
+
+INSERT INTO ItemEffect(Name)
+VALUES('Physical Damage')
+,('Armor')
+,('Magic Damage')
+,('Light')
+,('Confusion');
+
+INSERT INTO ItemXItemEffect(ItemId, ItemEffectId, Modifier)
+VALUES(18,2,10)
+,(19,4,2)
+,(20,1,5)
+,(21,1,3)
+,(21,5,2);
+
+INSERT INTO Skin(Name, ItemId)
+VALUES('Base', 18)
+,('Base', 19)
+,('Base', 20)
+,('Base', 21)
+,('Camouflage', 18);
+
+INSERT INTO NPCRole(Role)
+VALUES('Quest Giver')
+,('Enchanter')
+,('Enemy')
+,('Animal')
+,('Shop Keeper');
+
+INSERT INTO Economy(CoinValue)
+VALUES(1);
+
+INSERT INTO NPC(HP, RoleId, IsHostile, BaseDamage)
+VALUES(100,1,0,50)
+,(100,2,0,50)
+,(100,3,3,15)
+,(100,4,0,50)
+,(100,5,0,80);
+
+INSERT INTO Tables(TableName)
+VALUES('Action House')
+,('Player')
+,('NPC')
+,('Guild')
+,('Team');
+
+INSERT INTO Kingdom(Name)
+VALUES('Wloclawek')
+,('Ciechanow')
+,('Tychy')
+,('Radom')
+,('Tczew');
+
+INSERT INTO Inventory(OwnerId, OwnerTableId)
+VALUES(2,1)
+,(3,1)
+,(4,1)
+,(5,1)
+,(6,1);
+
+INSERT INTO InventoryXItem(InventoryId, ItemId, Count, IsEquipped)
+VALUES(1,17,2,0)
+,(1,19,2,0)
+,(2,18,2,0)
+,(3,17,2,0)
+,(3,19,25,0)
+,(3,18,2,0);
+
+INSERT INTO EquippedSkin(SkinId, InventoryXItemId)
+VALUES(1,3)
+,(2,2)
+,(5,6)
+,(2,5);
+
+INSERT INTO Item(Name, ItemCategoryId, RarityId, Cost)
+VALUES('Wood', 6, 1, 5)
+,('Copper', 6, 1, 5)
+,('Iron', 6, 1, 5);
+
+INSERT INTO BlueprintXItemNeeded(BlueprintItemId, ItemNeededId)
+VALUES(17, 22)
+,(17, 23)
+,(17, 24);
+
+alter table Item
+modify Name VARCHAR(50) not null;
+
+INSERT INTO Item(Name, ItemCategoryId, RarityId, Cost)
+VALUES('Wooden Armor Blueprint', 1, 3, 100);
+
+INSERT INTO BlueprintXItemNeeded(BlueprintItemId, ItemNeededId)
+VALUES(25, 22)
+,(25, 23);
+
+INSERT INTO ItemCategory(Name)
+VALUES ('Farming');
+
+INSERT INTO Item(Name, ItemCategoryId, RarityId, Cost)
+VALUES('Wooden Spear Blueprint', 1, 3, 100)
+,('Wooden Hammer Blueprint', 1, 3, 100)
+,('Torch Blueprint', 1, 3, 100)
+,('Hoe', 28, 1, 10);
+
+INSERT INTO Crafting(BlueprintItemId, ResultItemId)
+VALUES(17,29)
+,(25,18)
+,(28,19)
+,(26,20)
+,(27,21);
