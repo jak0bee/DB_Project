@@ -9,9 +9,7 @@ connection = mysql.connector.connect(
 
 cursor = connection.cursor()
 
-
 ################################################################################
-
 
 cursor.execute("""
 CREATE TABLE Class
@@ -20,9 +18,7 @@ CREATE TABLE Class
     Name    VARCHAR(20),
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Event
 (
     Id        SMALLINT NOT NULL AUTO_INCREMENT,
@@ -31,18 +27,14 @@ CREATE TABLE Event
     Duration  SMALLINT,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Achievement
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(20) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE EventCondition
 (
     Id            SMALLINT NOT NULL AUTO_INCREMENT,
@@ -52,9 +44,7 @@ CREATE TABLE EventCondition
     FOREIGN KEY (AchievementId) REFERENCES Achievement (Id),
     FOREIGN KEY (EventId) REFERENCES Event (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE PlayerXAchievement
 (
     Id            SMALLINT    NOT NULL AUTO_INCREMENT,
@@ -65,9 +55,7 @@ CREATE TABLE PlayerXAchievement
     FOREIGN KEY (AchievementId) REFERENCES Achievement (Id),
     FOREIGN KEY (PlayerId) REFERENCES Player (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Player
 (
     Id             SMALLINT    NOT NULL AUTO_INCREMENT,
@@ -82,18 +70,14 @@ CREATE TABLE Player
     FOREIGN KEY (RaceId) REFERENCES Race (Id),
     FOREIGN KEY (SkillTreeId) REFERENCES SkillTree (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Race
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(20) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE SkillTree
 (
     Id        SMALLINT NOT NULL AUTO_INCREMENT,
@@ -103,27 +87,21 @@ CREATE TABLE SkillTree
     FOREIGN KEY (AbilityId) REFERENCES Ability (Id),
     FOREIGN KEY (TalentId) REFERENCES Talent (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Ability
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(30) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Talent
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(30) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE TradeOffer
 (
     Id           SMALLINT NOT NULL AUTO_INCREMENT,
@@ -136,9 +114,7 @@ CREATE TABLE TradeOffer
     FOREIGN KEY (ToPlayerId) REFERENCES Player (Id),
     FOREIGN KEY (ItemId) REFERENCES InventoryXItem (ItemID)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE TeamXPlayerXRole
 (
     Id         SMALLINT NOT NULL AUTO_INCREMENT,
@@ -148,9 +124,7 @@ CREATE TABLE TeamXPlayerXRole
     FOREIGN KEY (PlayerId) REFERENCES Player (Id),
     FOREIGN KEY (TeamRoleId) REFERENCES TeamRole (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE TeamRole
 (
     Id     SMALLINT    NOT NULL AUTO_INCREMENT,
@@ -159,27 +133,21 @@ CREATE TABLE TeamRole
     PRIMARY KEY (Id),
     FOREIGN KEY (TeamId) REFERENCES Team (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Team
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(30) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Kingdom
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(30) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE PlayerCustomization
 (
     Id               SMALLINT NOT NULL AUTO_INCREMENT,
@@ -190,18 +158,14 @@ CREATE TABLE PlayerCustomization
     PRIMARY KEY (Id),
     FOREIGN KEY (PlayerId) REFERENCES Player (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Reward
 (
     Id   SMALLINT NOT NULL AUTO_INCREMENT,
     Name SMALLINT NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Quest
 (
     Id               SMALLINT    NOT NULL AUTO_INCREMENT,
@@ -213,9 +177,7 @@ CREATE TABLE Quest
     FOREIGN KEY (RewardId) REFERENCES Reward (Id),
     FOREIGN KEY (ObjectiveId) REFERENCES Objective (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE ObjectiveXQuest
 (
     Id           SMALLINT NOT NULL AUTO_INCREMENT,
@@ -230,27 +192,21 @@ CREATE TABLE ObjectiveXQuest
     FOREIGN KEY (PlayerId) REFERENCES Player (Id),
     FOREIGN KEY (DifficultyId) REFERENCES Difficulty (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Objective
 (
     Id      SMALLINT     NOT NULL AUTO_INCREMENT,
     Name    VARCHAR(100) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Difficulty
 (
     Id   SMALLINT NOT NULL AUTO_INCREMENT,
     Name VARCHAR(20),
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE PlayerAnalytics
 (
     Id                 SMALLINT NOT NULL AUTO_INCREMENT,
@@ -263,18 +219,14 @@ CREATE TABLE PlayerAnalytics
     PRIMARY KEY (Id),
     FOREIGN KEY (PlayerId) REFERENCES Player (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE GuildCategory
 (
     Id   SMALLINT    NOT NULL AUTO_INCREMENT,
     Name VARCHAR(50) NOT NULL,
     PRIMARY KEY (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE Guild
 (
     Id              SMALLINT    NOT NULL AUTO_INCREMENT,
@@ -283,9 +235,7 @@ CREATE TABLE Guild
     PRIMARY KEY (Id),
     FOREIGN KEY (GuildCategoryId) REFERENCES GuildCategory (Id)
 );
-""")
 
-cursor.execute("""
 CREATE TABLE GuildXPlayer
 (
     Id       SMALLINT NOT NULL AUTO_INCREMENT,
