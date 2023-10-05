@@ -57,12 +57,6 @@ CREATE TABLE Team
     Name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE Kingdom
-(
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(30) NOT NULL
-);
-
 CREATE TABLE Reward
 (
     Id   SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -87,7 +81,6 @@ CREATE TABLE GuildCategory
     Name VARCHAR(50) NOT NULL
 );
 
--- Tables with foreign keys (depends on previous tables)
 CREATE TABLE SkillTree
 (
     Id        SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -134,6 +127,158 @@ CREATE TABLE TeamRole
     Name   VARCHAR(30) NOT NULL,
     TeamId SMALLINT    NOT NULL,
     FOREIGN KEY (TeamId) REFERENCES Team (Id)
+);
+
+CREATE TABLE Tables
+(
+    Id        SMALLINT    NOT NULL AUTO_INCREMENT,
+    TableName VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Inventory
+(
+    Id           SMALLINT NOT NULL AUTO_INCREMENT,
+    OwnerId      SMALLINT NOT NULL,
+    OwnerTableId SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (OwnerTableId) REFERENCES Tables (Id)
+);
+
+CREATE TABLE ActionHouse
+(
+    Id           SMALLINT    NOT NULL AUTO_INCREMENT,
+    Name         VARCHAR(20) NOT NULL,
+    BuyModifier  SMALLINT    NOT NULL,
+    SellModifier SMALLINT    NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE NPCRole
+(
+    Id   SMALLINT    NOT NULL AUTO_INCREMENT,
+    Role VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE NPC
+(
+    Id         SMALLINT NOT NULL AUTO_INCREMENT,
+    HP         SMALLINT NOT NULL,
+    RoleId     SMALLINT,
+    IsHostile  BOOLEAN  NOT NULL,
+    BaseDamage DOUBLE   NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (RoleId) REFERENCES NPCRole (Id)
+);
+
+CREATE TABLE ItemEffect
+(
+    Id   SMALLINT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(20),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE ItemCategory
+(
+    Id   SMALLINT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(20),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Rarity
+(
+    Id    SMALLINT    NOT NULL AUTO_INCREMENT,
+    Name  VARCHAR(20) NOT NULL,
+    Color VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Item
+(
+    Id             SMALLINT NOT NULL AUTO_INCREMENT,
+    Name           VARCHAR(20),
+    ItemCategoryId SMALLINT NOT NULL,
+    RarityId       SMALLINT NOT NULl,
+    Cost           SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemCategoryId) REFERENCES ItemCategory (Id),
+    FOREIGN KEY (RarityId) REFERENCES Rarity (Id)
+);
+
+CREATE TABLE ItemXItemEffect
+(
+    Id           SMALLINT NOT NULL AUTO_INCREMENT,
+    ItemId       SMALLINT,
+    ItemEffectId SMALLINT,
+    Modifier     SMALLINT,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemId) REFERENCES Item (Id),
+    FOREIGN KEY (ItemEffectId) REFERENCES ItemEffect (Id)
+);
+
+CREATE TABLE BlueprintXItemNeeded
+(
+    Id              SMALLINT NOT NULL AUTO_INCREMENT,
+    BlueprintItemId SMALLINT NOT NULL,
+    ItemNeededId    SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (BlueprintItemId) REFERENCES Item (Id),
+    FOREIGN KEY (ItemNeededId) REFERENCES Item (Id)
+);
+
+CREATE TABLE Crafting
+(
+    Id              SMALLINT NOT NULL AUTO_INCREMENT,
+    BlueprintItemId SMALLINT NOT NULL,
+    ResultItemId    SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (BlueprintItemId) REFERENCES Item (Id),
+    FOREIGN KEY (ResultItemId) REFERENCES Item (Id)
+
+);
+
+CREATE TABLE Skin
+(
+    Id     SMALLINT    NOT NULL AUTO_INCREMENT,
+    Name   VARCHAR(20) NOT NULL,
+    ItemId SMALLINT    NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemId) REFERENCES Item (Id)
+);
+
+CREATE TABLE InventoryXItem
+(
+    Id          SMALLINT NOT NULL AUTO_INCREMENT,
+    InventoryId SMALLINT NOT NULL,
+    ItemId      SMALLINT NOT NULL,
+    IsEquipped  BOOLEAN  NOT NULL,
+    Count       SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ItemId) REFERENCES Item (Id),
+    FOREIGN KEY (InventoryId) REFERENCES Inventory (Id)
+);
+
+CREATE TABLE EquippedSkin
+(
+    Id               SMALLINT NOT NULL AUTO_INCREMENT,
+    SkinId           SMALLINT NOT NULL,
+    InventoryXItemId SMALLINT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (InventoryXItemId) REFERENCES InventoryXItem (Id),
+    FOREIGN KEY (SkinId) REFERENCES Skin (Id)
+);
+
+CREATE TABLE Economy
+(
+    CoinValue SMALLINT NOT NULL
+);
+
+CREATE TABLE Kingdom
+(
+    Id   SMALLINT    NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Id)
 );
 
 CREATE TABLE PlayerCustomization
