@@ -97,9 +97,11 @@ CREATE TABLE Player
     HP          SMALLINT    NOT NULL DEFAULT 100,
     RaceId      SMALLINT    NOT NULL,
     SkillTreeId SMALLINT    NOT NULL,
+    ClassId     SMALLINT    NOT NULL,
     Coins       SMALLINT             DEFAULT 0,
     FOREIGN KEY (RaceId) REFERENCES Race (Id),
-    FOREIGN KEY (SkillTreeId) REFERENCES SkillTree (Id)
+    FOREIGN KEY (SkillTreeId) REFERENCES SkillTree (Id),
+    FOREIGN KEY (ClassId) REFERENCES Class (Id)
 );
 
 CREATE TABLE Guild
