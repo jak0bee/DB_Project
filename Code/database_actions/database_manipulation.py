@@ -9,7 +9,7 @@ class DatabaseActions:
         self.connection = engine.connect()
 
 
-    def insert(self, table_name: str, columns: list, values: list) -> None:
+    def insert(self, table_name: str, values: list, columns: list) -> None:
         """
         Takes the name of a table and a list of values of a row and inserts it into the given table.
 
