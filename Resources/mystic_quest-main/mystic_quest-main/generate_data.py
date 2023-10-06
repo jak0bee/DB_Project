@@ -371,7 +371,7 @@ shuffled_records = [(k, v) for k, records in all_generated_records.items() for v
 random.shuffle(shuffled_records)
 
 # Write shuffled and marked records to a txt file
-with open('generated_entities.txt', 'w') as f:
+with open('../../generated_entities.txt', 'w') as f:
     for entity_type, record in shuffled_records:
         identifier = f"--- {entity_type} ---\n"
         f.write(identifier)
@@ -438,7 +438,7 @@ for _ in range(20000):
         generated_events.append(event)
 
 # Export to a custom text file format
-with open('generated_events.txt', 'w') as f:
+with open('../../generated_events.txt', 'w') as f:
     for event in generated_events:
         f.write(f"[Event Type]: {event.get('type', 'N/A')}\n")
         f.write(f"[Timestamp]: {event.get('timestamp', 'N/A')}\n")
