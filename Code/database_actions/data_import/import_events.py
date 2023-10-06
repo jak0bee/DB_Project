@@ -1,4 +1,4 @@
-def print_colorful_table(file_name):
+def importevents(file_name):
     """
     Imports the data from the file
     Args:
@@ -6,9 +6,9 @@ def print_colorful_table(file_name):
     """
     file = open(file_name, "r")
     events = []
-    for event in file.readlines():
-        print(event)
+    for line in file.readlines():
+        print(line.split())
     file.close()
 
 
-print_colorful_table("Resources/generated_events.txt")
+importevents("../../../Resources/generated_events.txt")

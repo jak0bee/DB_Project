@@ -441,15 +441,15 @@ for _ in range(20000):
 # Export to a custom text file format
 with open('../../generated_events.txt', 'w') as f:
     for event in generated_events:
-        f.write(f"[Event Type]: {event.get('type', 'N/A')}\n")
+        f.write(f"[EventType]: {event.get('type', 'N/A')}\n")
         f.write(f"[Timestamp]: {event.get('timestamp', 'N/A')}\n")
         f.write(f"[Entity1]: {event.get('entity1', 'N/A')}\n")
         f.write(f"[Entity2]: {event.get('entity2', 'N/A')}\n")
         f.write(f"[Value]: {event.get('value', 'N/A')}\n")
         additional_entity_type = event.get("additional_entity_type", "N/A")
         if additional_entity_type != "N/A":
-            f.write(f"[Additional Entity Type]: {additional_entity_type}\n")
-            f.write(f"[Additional Entity]: {event.get('additional_entity', 'N/A')}\n")
+            f.write(f"[AdditionalEntityType]: {additional_entity_type}\n")
+            f.write(f"[AdditionalEntity]: {event.get('additional_entity', 'N/A')}\n")
         f.write("=====\n")
 
 print("-" * 40)
