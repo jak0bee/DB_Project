@@ -1,22 +1,18 @@
-import mysql.connector
+from sqlalchemy import create_engine, text
 
 
 class DatabaseActions:
     def __init__(self):
-        connection = mysql.connector.connect(
-            host='database-1.cotjdrp5li6u.eu-north-1.rds.amazonaws.com',
-            user='admin',
-            password='Database2023!',
-            database='Main'
-        )
+        engine = create_engine(
+            "mysql+pymysql://admin:Database2023!@database-1.cotjdrp5li6u.eu-north-1.rds.amazonaws.com/Main")
 
-        self.cursor = connection.cursor()
+        self.connection = engine.connect()
 
 
     def insert(self, table_name: str, columns: list, values: list) -> None:
         """
         Takes the name of a table and a list of values of a row and inserts it into the given table.
-        
+
         Args:
             table_name: The name of the table.
             columns: The list of columns to which the data will be added.
@@ -25,4 +21,4 @@ class DatabaseActions:
 
         data = f"({', '.join(values)})"
 
-        self.cursor.execute(f"INSERT INTO {table_name}({columns}) VALUES {data}")
+        self.connection.execute(text(f"INSERT INTO {table_name}({columns}) VALUES {data}"))

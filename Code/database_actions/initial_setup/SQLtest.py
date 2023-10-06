@@ -1,5 +1,6 @@
-#pip install sqlalchemy pymysql
+# pip install sqlalchemy pymysql
 from sqlalchemy import create_engine, text
+
 
 # Create the engine
 engine = create_engine("mysql+pymysql://admin:Database2023!@database-1.cotjdrp5li6u.eu-north-1.rds.amazonaws.com/Main")
