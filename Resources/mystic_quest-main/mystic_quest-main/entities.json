@@ -174,7 +174,7 @@
             ]
         },
         {
-            "name": "Event",
+            "name": "SpecialEvent",
             "type": "event",
             "fields": [
                 {
