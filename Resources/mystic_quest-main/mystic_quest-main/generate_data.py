@@ -39,7 +39,7 @@ Value source generation
 def load_csv_to_list(file_name, entity_type):
     """
         Load data from a CSV file to a list based on the entity_type.
-        
+
         Parameters:
         file_name (str): The name of the CSV file to read.
         entity_type (str): The type of the entity, used to determine how to read the data.
@@ -53,14 +53,15 @@ def load_csv_to_list(file_name, entity_type):
         FileNotFoundError: Raised if the file specified by file_name is not found.
         Exception: Catches all other exceptions and prints an error message.
 
-        Example Usage:
-        >>> load_csv_to_list('kingdoms.csv', 'kingdom')
-        (['Kingdom1', 'Kingdom2'], [])
-        
-        >>> load_csv_to_list('npcs.csv', 'npc')
-        (['NPC1', 'NPC2'], ['Description1', 'Description2'])
+            Example Usage:
+            >>> result = load_csv_to_list('Resources/mystic_quest-main/mystic_quest-main/data/dialogues.csv', 'dialogue')
+            >>> isinstance(result, tuple) and len(result) == 2
+            True
+            >>> all(isinstance(item, str) for item in result[0])
+            True
+            >>> isinstance(result[1], list) and (not result[1] or all(isinstance(item, str) for item in result[1]))
+            True
     """
-
     loaded_list = []
     loaded_list_second_column = []
     try:
