@@ -5,6 +5,7 @@ import random
 
 from prettytable import PrettyTable
 
+
 def print_colorful_table(entity_name, records):
     """
     Prints records in a colorful, well-formatted way
@@ -28,10 +29,12 @@ def print_colorful_table(entity_name, records):
     print(f"{entity_name} ({entity_type=}) Table:")
     print(x)
     print()
-    
+
+
 """
 Value source generation
-"""    
+"""
+
 
 def load_csv_to_list(file_name, entity_type):
     """
@@ -57,14 +60,15 @@ def load_csv_to_list(file_name, entity_type):
         >>> load_csv_to_list('npcs.csv', 'npc')
         (['NPC1', 'NPC2'], ['Description1', 'Description2'])
     """
-    
+
     loaded_list = []
     loaded_list_second_column = []
     try:
         with open(file_name, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
             for row in csv_reader:
-                if entity_type in ['kingdom', 'team_name', 'blueprint', 'dialogue', 'event_name', 'first_name', 'last_name']:
+                if entity_type in ['kingdom', 'team_name', 'blueprint', 'dialogue', 'event_name', 'first_name',
+                                   'last_name']:
                     # Assuming the CSV has a single column for these types
                     loaded_list.append(row[0])
                 elif entity_type in ['npc', 'enemy', 'item_name', 'guild']:
@@ -78,6 +82,7 @@ def load_csv_to_list(file_name, entity_type):
         raise FileNotFoundError()
 
     return loaded_list, loaded_list_second_column
+
 
 blueprints, blueprint_types = load_csv_to_list('data/blueprints.csv', 'blueprint')
 enemy_names, enemy_types = load_csv_to_list('data/enemies.csv', 'enemy')
@@ -104,7 +109,7 @@ all_types = {
     "last_names": last_names,
     "item_names": item_names,
     "race_names": ['Elf', 'Dwarf', 'Human', 'Orc', 'Undead', 'Naga'],
-    "race_descriptions":[
+    "race_descriptions": [
         'Graceful beings connected with nature and magic.',
         'Stout warriors skilled in metallurgy and crafting.',
         'Versatile and adaptive, excelling in various crafts and trades.',
@@ -116,8 +121,8 @@ all_types = {
         "Sword", "Staff", "Bow", "Shield",
         "Dagger", "Amulet", "Ring", "Potion",
     ],
-    "class_names" :['Warrior', 'Mage', 'Archer', 'Healer', 'Rogue', 'Summoner'],
-    "class_descriptions" : [
+    "class_names": ['Warrior', 'Mage', 'Archer', 'Healer', 'Rogue', 'Summoner'],
+    "class_descriptions": [
         'Specializes in tanking damage and close combat.',
         'Offers both damage and support through a variety of spells.',
         'Excels at long-range damage with various types of arrows.',
@@ -125,9 +130,9 @@ all_types = {
         'Skilled in stealth and quick, deadly attacks.',
         'Summons minions to aid in combat.'
     ],
-    "kingdom_names" :["Valoria", "Cimmeria", "Elphora", "Orynthia"],
-    'npc_types' : ['Quest-givers', 'Shopkeepers', 'Skill_Trainers', 'Lore_Masters'],
-    "npc_descriptions" : [
+    "kingdom_names": ["Valoria", "Cimmeria", "Elphora", "Orynthia"],
+    'npc_types': ['Quest-givers', 'Shopkeepers', 'Skill_Trainers', 'Lore_Masters'],
+    "npc_descriptions": [
         'Assign tasks and offer rewards',
         'Sell items and resources',
         'Offer skill upgrades for a fee',
@@ -135,10 +140,10 @@ all_types = {
     ],
 }
 
-
 # Start and end dates for the generated data
 start_date = datetime.datetime(2021, 1, 1, 0, 0, 0)
 end_date = datetime.datetime(2023, 9, 14, 23, 59, 59)
+
 
 def get_random_entity(entity_type):
     """
@@ -176,8 +181,10 @@ def generate_random_value(datatype):
         return generate_random_timestamp(start_date, end_date).isoformat()
     else:
         return None
-    
+
+
 import random
+
 
 def generate_random_timestamp(start, end):
     """
@@ -193,6 +200,7 @@ def generate_random_timestamp(start, end):
     time_between_dates = end - start
     random_number_of_seconds = random.randrange(int(time_between_dates.total_seconds()))
     return start + datetime.timedelta(seconds=random_number_of_seconds)
+
 
 def generate_word_like_string(length):
     """
@@ -216,11 +224,12 @@ def generate_word_like_string(length):
     - Phoneme structures are simulated to ensure that clusters of vowels and consonants are reasonable.
     """
     vowels = 'aeiou'
-    clusters = ['bl', 'br', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr', 'sc', 'sk', 'sl', 'sm', 'sn', 'sp', 'st', 'sw', 'tr']
+    clusters = ['bl', 'br', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr', 'sc', 'sk', 'sl', 'sm', 'sn', 'sp',
+                'st', 'sw', 'tr']
     # Determine individual consonants that are not part of a cluster
     all_consonants = 'bcdfghjklmnpqrstvwxyz'
     word = ''
-    
+
     n_cons = 0
     n_vowels = 0
     for i in range(length):
@@ -236,8 +245,9 @@ def generate_word_like_string(length):
             else:
                 word += random.choice(clusters)
                 n_cons += 2
-    
+
     return word
+
 
 def generate_relation(entity1_type, entity2_type):
     """
@@ -266,7 +276,7 @@ def generate_relation(entity1_type, entity2_type):
     """
     value = None
     additional_entity_type = None  # Initialize to None
-    
+
     if entity1_type == "player" and entity2_type == "npc":
         value = random.choice(["Talked", "Fought", "Ignored", "Bought From", "Sold To"])
         if value == "Talked":
@@ -285,9 +295,10 @@ def generate_relation(entity1_type, entity2_type):
         value = random.choice(["Joined", "Left", "Captained"])
     elif entity1_type == "player" and entity2_type == "enemy":
         value = random.choice(["Defeated", "Escaped", "Captured"])
-    
+
     return value, additional_entity_type  # This will return the 'value' and 'additional_entity_type', which may be None
-    
+
+
 # Read the JSON file containing the entity definitions
 with open('entities.json', 'r') as f:
     entity_definitions = json.load(f)['entities']
@@ -303,7 +314,8 @@ defined_entity_types = set(entity['type'] for entity in entity_definitions)
 # Check for missing entity types and throw an exception if any are missing
 missing_entity_types = set(entity_types) - defined_entity_types
 if missing_entity_types:
-    raise ValueError(f"The following entity types are missing in the entity definitions: {', '.join(missing_entity_types)}. All types must be defined; \n {', '.join(entity_types)}")
+    raise ValueError(
+        f"The following entity types are missing in the entity definitions: {', '.join(missing_entity_types)}. All types must be defined; \n {', '.join(entity_types)}")
 
 # Loop through each entity definition and generate data
 for entity in entity_definitions:
@@ -330,7 +342,7 @@ for entity in entity_definitions:
                 # Initialize counter for new entities
                 if pk_type not in last_used_ids:
                     last_used_ids[pk_type] = 0
-                
+
                 # Increment counter for the entity
                 last_used_ids[pk_type] += random.randint(1, 3)
                 # Store the primary key
@@ -438,8 +450,9 @@ with open('generated_events.txt', 'w') as f:
             f.write(f"[Additional Entity Type]: {additional_entity_type}\n")
             f.write(f"[Additional Entity]: {event.get('additional_entity', 'N/A')}\n")
         f.write("=====\n")
-        
-print("-"*40)
+
+print("-" * 40)
 print("\n- Data generation complete! - \n")
-print("Two files have been generated:\n - 'generated_events.txt' and,\n - 'generated_entities.txt'.\n Load the contents of these files into your database.\n")
-print("-"*40)
+print(
+    "Two files have been generated:\n - 'generated_events.txt' and,\n - 'generated_entities.txt'.\n Load the contents of these files into your database.\n")
+print("-" * 40)
