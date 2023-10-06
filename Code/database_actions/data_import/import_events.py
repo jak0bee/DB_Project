@@ -1,3 +1,4 @@
+import json
 import re
 
 from utils.special_event import special_event
@@ -31,5 +32,20 @@ def import_events(file_name):
             elif event_property in type_properties:  # check if the value in [] is valid
                 line = line[1:]
                 line = ''.join(line)  # here the line is what needs to be inserted in the event_property of the last event
+                if is_json(line.replace("'", '"')):
+                    line = json.loads(line.replace('\'', '"'))
                 setattr(events[-1], event_property, line)  # insert line into the event_property (of this line), for the last event
     return events
+
+def is_json(myjson):
+    try:
+        json.loads(myjson)
+    except ValueError as e:
+        return False
+    return True
+
+# For testing
+# tmp = import_events("../../../Resources/generated_events.txt")
+# for event in tmp:
+#     event.print()
+#     print(type(event.entity1))
