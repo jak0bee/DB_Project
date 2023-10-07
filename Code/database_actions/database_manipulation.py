@@ -17,7 +17,7 @@ class DatabaseActions:
             table_name: The name of the table.
             columns: The list of columns to which the data will be added.
             values: The list of variables to be set as values of respective columns in the row added to the table.
-        """""
+        """
 
         data = f"({', '.join(values)})"
 
