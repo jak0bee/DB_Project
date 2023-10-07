@@ -1,0 +1,34 @@
+[event_type]: player_with_guild
+[timestamp]: 2023-09-12T20:20:14
+[entity1]: {'id': 46, 'first_name': 'Lythor', 'firstname': 'Earthshaker', 'race': 'Human', 'class': 'Archer', 'guild': 'Dragon Slayers', 'last_login': '2023-06-25T18:10:12'}
+[entity2]: {'id': 48, 'name': 'Frostbite Clan', 'description': 'Questing', 'leader': 'Zyraziel', 'members': 734, 'founded_year': 751}
+[value]: Joined
+=====
+[event_type]: player_with_team
+[timestamp]: 2023-08-08T20:29:35
+[entity1]: {'id': 10, 'first_name': 'Azalor', 'firstname': 'Firemantle', 'race': 'Elf', 'class': 'Rogue', 'guild': 'Hands of Fate', 'last_login': '2023-06-08T14:09:45'}
+[entity2]: {'id': 238, 'team_name': 'Sapphire_Sorcerers', 'kingdom': 'Valoria', 'n_members': 745}
+[value]: Left
+=====
+[event_type]: player_with_npc
+[timestamp]: 2022-06-11T19:11:07
+[entity1]: {'id': 264, 'first_name': 'Serafelle', 'firstname': 'Snowfall', 'race': 'Orc', 'class': 'Mage', 'guild': 'Archmage Assembly', 'last_login': '2022-01-19T04:47:07'}
+[entity2]: {'id': 640, 'npc_type': 'Quest-givers', 'first_name': 'Elandria', 'last_name': 'Soulforge', 'location': 500.27}
+[value]: Sold To
+[additional_entity_type]: item
+[additional_entity]: {'id': 59, 'item_name': 'Flask of Infinite Courage', 'item_type': 'Ring'}
+=====
+[event_type]: player_with_team
+[timestamp]: 2021-01-09T14:19:37
+[entity1]: {'id': 32, 'first_name': 'Aralyn', 'firstname': 'Earthward', 'race': 'Human', 'class': 'Healer', 'guild': 'Sun Warriors', 'last_login': '2023-07-01T20:27:51'}
+[entity2]: {'id': 54, 'team_name': 'Dream_Weavers', 'kingdom': 'Valoria', 'n_members': 83}
+[value]: Captained
+=====
+[event_type]: player_with_npc
+[timestamp]: 2022-06-14T12:53:08
+[entity1]: {'id': 162, 'first_name': 'Daelis', 'firstname': 'Doomhammer', 'race': 'Elf', 'class': 'Warrior', 'guild': 'Sun Warriors', 'last_login': '2023-04-23T22:22:16'}
+[entity2]: {'id': 792, 'npc_type': 'Skill_Trainers', 'first_name': 'Elidora', 'last_name': 'Ironsong', 'location': 239.6}
+[value]: Talked
+[additional_entity_type]: dialogue
+[additional_entity]: {'id': 237, 'content': 'He who fights with monsters should be careful lest he thereby become a monster. And if you grind too long, the grind also grinds you.', 'choice_options': 752, 'emotion': 149}
+=====
