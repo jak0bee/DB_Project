@@ -19,12 +19,13 @@ def export_events():
     for i,event in enumerate(events):
         print("currently at: ", i,", from ", le)
         try:
-            print("checking: " + event.entity1_type, " ", event.entity1['id'])
-            print(dbm.check(event.entity1_type, event.entity1['id']))
+            entity1 = dbm.check(event.entity1_type, event.entity1['id'])
+            entity2 = dbm.check(event.entity2_type, event.entity2['id'])
+
         except TypeError:
             continue
     end_time = time.time()
-    print(f"Function executed in {end_time - start_time:.2f} seconds.")
+    print(f"Events exported in {end_time - start_time:.2f} seconds.")
 
 
 export_events()
