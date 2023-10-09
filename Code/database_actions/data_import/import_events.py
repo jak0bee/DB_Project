@@ -48,7 +48,7 @@ def is_json(myjson):
     return True
 
 # For testing
-# tmp = import_events("../../../Resources/generated_events.txt")
-# for event in tmp:
-#     event.print()
-#     print(type(event.entity1))
+tmp = import_events("../../../Resources/generated_events.txt")
+for event in tmp:
+    event.print()
+    print(type(event.entity1))
