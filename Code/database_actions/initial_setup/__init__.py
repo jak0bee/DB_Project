@@ -108,7 +108,7 @@ table_creation_statements = [
         buy_modifier      SMALLINT    NOT NULL,
         sell_modifier     SMALLINT    NOT NULL
     )""",
-    """CREATE TABLE NPC
+    """CREATE TABLE Npc
     (
         id       SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
         npc_name VARCHAR(50) NOT NULL,

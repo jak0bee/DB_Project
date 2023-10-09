@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, text, MetaData
 from database_actions import database_url
+from sqlalchemy.exc import ProgrammingError,OperationalError
 
 
 class DatabaseManipulation:
@@ -27,13 +28,20 @@ class DatabaseManipulation:
         self.connection.execute(text(f"INSERT INTO {table_name}({columns}) VALUES {data}"))
 
     def check(self, table_name: str, id: int) -> bool:
-        value = None
-        try:
-            value = self.connection.execute(text(f"SELECT * FROM {table_name} WHERE Id = {id}"))
-        except NameError:
-            return False
+        # Format table name (assuming only the first letter should be uppercase)
+        table_name = table_name[0].upper() + table_name[1:].lower()
 
-        return value is not None
+        # Construct the SQL query to check for the ID in the specified table
+        query_string = f"SELECT * FROM {table_name} WHERE Id = {id} LIMIT 1"
+        query = text(query_string)
+
+
+        # Execute the query
+        result = self.connection.execute(query).fetchone()
+
+        # If the result is not None, the ID exists in the table
+        return result is not None
+
 
     def drop_all_tables(self) -> None:
         meta = MetaData()
