@@ -233,7 +233,7 @@ table_creation_statements = [
         FOREIGN KEY (from_player_id) REFERENCES Player (id),
         FOREIGN KEY (to_player_id) REFERENCES Player (id)
     )""",
-    """CREATE TABLE EventCondition
+    """CREATE TABLE SpecialEventCondition
     (
         id             SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         achievement_id SMALLINT NOT NULL,
@@ -296,5 +296,18 @@ table_creation_statements = [
         content        VARCHAR(100) NOT NULL,
         choice_options SMALLINT     NOT NULL,
         emotion        SMALLINT     NOT NULL
-    )"""
+    )""",
+    """CREATE TABLE Event
+(
+    id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    eventType   VARCHAR(20) NOT NULL,
+    timestamp   DATETIME    NOT NULL,
+    entity1Id   SMALLINT    NOT NULL,
+    entity1Type VARCHAR(20) NOT NULL,
+    entity2Id   SMALLINT    NOT NULL,
+    entity2Type VARCHAR(20) NOT NULL,
+    value   VARCHAR(20) NOT NULL,
+    additionalEntityId SMALLINT,
+    additionalEntityType VARCHAR(20)
+)"""
 ]
