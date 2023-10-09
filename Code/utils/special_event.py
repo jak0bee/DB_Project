@@ -9,6 +9,7 @@ class special_event:
         self.additional_entity_type = additional_entity_type
         self.additional_entity = additional_entity
 
+
     def print(self):
         print("Event Type:", self.event_type)
         print("Timestamp:", self.timestamp)

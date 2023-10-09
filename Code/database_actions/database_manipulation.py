@@ -1,12 +1,15 @@
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, MetaData
+from database_actions import database_url
 
 
-class DatabaseActions:
+class DatabaseManipulation:
     def __init__(self):
-        engine = create_engine(
-            "mysql+pymysql://admin:Database2023!@database-1.cotjdrp5li6u.eu-north-1.rds.amazonaws.com/Main")
+        self.engine = create_engine(database_url)
+        self.connection = self.engine.connect()
 
-        self.connection = engine.connect()
+
+    def create_table(self, statement: str) -> None:
+        self.connection.execute(text(statement))
 
 
     def insert(self, table_name: str, values: list, columns: list) -> None:
@@ -22,3 +25,16 @@ class DatabaseActions:
         data = f"({', '.join(values)})"
 
         self.connection.execute(text(f"INSERT INTO {table_name}({columns}) VALUES {data}"))
+
+
+    def drop_all_tables(self) -> None:
+        meta = MetaData()
+        meta.reflect(bind=self.engine)
+
+        with self.engine.begin() as connection:
+            connection.execute(text("SET FOREIGN_KEY_CHECKS=0"))
+
+        meta.drop_all(self.engine)
+
+        with self.engine.begin() as connection:
+            connection.execute(text("SET FOREIGN_KEY_CHECKS=1"))

@@ -1,369 +1,364 @@
-import mysql.connector
+from sqlalchemy import create_engine, text
+from database_actions import database_url
 
 
-connection = mysql.connector.connect(
-    host='database-1.cotjdrp5li6u.eu-north-1.rds.amazonaws.com',
-    user='admin',
-    password='Database2023!',
-    database='Main'
-)
-
-cursor = connection.cursor()
+engine = create_engine(database_url)
+connection = engine.connect()
 
 ################################################################################
 
-cursor.execute("""
+connection.execute(text("""
 CREATE TABLE Class
 (
-    Id   SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(20)
+    id         SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    class_name VARCHAR(20)
 );
 
-CREATE TABLE Event
+CREATE TABLE SpecialEvent
 (
-    Id        SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name      VARCHAR(20),
-    StartDate DATETIME,
-    Duration  DECIMAL(9, 5)
+    id                 SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    special_event_name VARCHAR(20),
+    start_date         DATETIME,
+    end_date           DATETIME
 );
 
 CREATE TABLE Achievement
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(20) NOT NULL
+    Id               SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    achievement_name VARCHAR(35) NOT NULL
 );
 
 CREATE TABLE Race
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(20) NOT NULL
+    id        SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    race_name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE Ability
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(30) NOT NULL
+    id           SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ability_name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Talent
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(30) NOT NULL
+    id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    talent_name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Team
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(30) NOT NULL
+    id        SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    team_name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Reward
 (
-    Id   SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name SMALLINT NOT NULL
+    id          SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    reward_name SMALLINT NOT NULL
 );
 
 CREATE TABLE Objective
 (
-    Id   SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100) NOT NULL
+    id             SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    objective_name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Difficulty
 (
-    Id   SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(20)
+    id              SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    difficulty_name VARCHAR(20)
 );
 
 CREATE TABLE GuildCategory
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(50) NOT NULL
+    id                  SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    guild_category_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE SkillTree
 (
-    Id        SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    AbilityId SMALLINT,
-    TalentId  SMALLINT,
-    FOREIGN KEY (AbilityId) REFERENCES Ability (Id),
-    FOREIGN KEY (TalentId) REFERENCES Talent (Id)
+    id         SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ability_id SMALLINT,
+    talent_id  SMALLINT,
+    FOREIGN KEY (ability_id) REFERENCES Ability (id),
+    FOREIGN KEY (talent_id) REFERENCES Talent (id)
 );
 
 CREATE TABLE Player
 (
-    Id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name        VARCHAR(20) NOT NULL,
-    HP          SMALLINT    NOT NULL DEFAULT 100,
-    RaceId      SMALLINT    NOT NULL,
-    SkillTreeId SMALLINT    NOT NULL,
-    ClassId     SMALLINT    NOT NULL,
-    Coins       SMALLINT             DEFAULT 0,
-    FOREIGN KEY (RaceId) REFERENCES Race (Id),
-    FOREIGN KEY (SkillTreeId) REFERENCES SkillTree (Id),
-    FOREIGN KEY (ClassId) REFERENCES Class (Id)
+    id            SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    player_name   VARCHAR(50) NOT NULL,
+    hitpoints     SMALLINT    NOT NULL DEFAULT 100,
+    race_id       SMALLINT    NOT NULL,
+    skill_tree_id SMALLINT    NOT NULL,
+    class_id      SMALLINT    NOT NULL,
+    coins         SMALLINT             DEFAULT 0,
+    FOREIGN KEY (race_id) REFERENCES Race (id),
+    FOREIGN KEY (skill_tree_id) REFERENCES SkillTree (id),
+    FOREIGN KEY (class_id) REFERENCES Class (id)
 );
 
 CREATE TABLE Guild
 (
-    Id              SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name            VARCHAR(50) NOT NULL,
-    GuildCategoryId SMALLINT    NOT NULL,
-    FOREIGN KEY (GuildCategoryId) REFERENCES GuildCategory (Id)
+    id                SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    guild_name        VARCHAR(50) NOT NULL,
+    guild_category_id SMALLINT    NOT NULL,
+    FOREIGN KEY (guild_category_id) REFERENCES GuildCategory (id)
 );
 
 CREATE TABLE Quest
 (
-    Id               SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name             VARCHAR(30) NOT NULL,
-    RewardId         SMALLINT,
-    ObjectiveId      SMALLINT    NOT NULL,
-    CompletedAsATeam BOOLEAN     NOT NULL,
-    FOREIGN KEY (RewardId) REFERENCES Reward (Id),
-    FOREIGN KEY (ObjectiveId) REFERENCES Objective (Id)
+    id                SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    quest_name        VARCHAR(30) NOT NULL,
+    reward_id         SMALLINT,
+    objective_id      SMALLINT    NOT NULL,
+    completed_as_team BOOLEAN     NOT NULL,
+    FOREIGN KEY (reward_id) REFERENCES Reward (id),
+    FOREIGN KEY (objective_id) REFERENCES Objective (id)
 );
 
 CREATE TABLE TeamRole
 (
-    Id     SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Name   VARCHAR(30) NOT NULL,
-    TeamId SMALLINT    NOT NULL,
-    FOREIGN KEY (TeamId) REFERENCES Team (Id)
+    id             SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    team_role_name VARCHAR(30) NOT NULL,
+    team_id        SMALLINT    NOT NULL,
+    FOREIGN KEY (team_id) REFERENCES Team (id)
 );
 
 CREATE TABLE Tables
 (
-    Id        SMALLINT    NOT NULL AUTO_INCREMENT,
-    TableName VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    id         SMALLINT    NOT NULL AUTO_INCREMENT,
+    table_name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Inventory
 (
-    Id           SMALLINT NOT NULL AUTO_INCREMENT,
-    OwnerId      SMALLINT NOT NULL,
-    OwnerTableId SMALLINT NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (OwnerTableId) REFERENCES Tables (Id)
+    id             SMALLINT NOT NULL AUTO_INCREMENT,
+    owner_id       SMALLINT NOT NULL,
+    owner_table_id SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (owner_table_id) REFERENCES Tables (id)
 );
 
 CREATE TABLE ActionHouse
 (
-    Id           SMALLINT    NOT NULL AUTO_INCREMENT,
-    Name         VARCHAR(20) NOT NULL,
-    BuyModifier  SMALLINT    NOT NULL,
-    SellModifier SMALLINT    NOT NULL,
-    PRIMARY KEY (Id)
+    id                SMALLINT    NOT NULL AUTO_INCREMENT,
+    action_house_name VARCHAR(20) NOT NULL,
+    buy_modifier      SMALLINT    NOT NULL,
+    sell_modifier     SMALLINT    NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE NPCRole
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT,
-    Role VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    id            SMALLINT    NOT NULL AUTO_INCREMENT,
+    npc_role_name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE NPC
 (
-    Id         SMALLINT NOT NULL AUTO_INCREMENT,
-    HP         SMALLINT NOT NULL,
-    RoleId     SMALLINT,
-    IsHostile  BOOLEAN  NOT NULL,
-    BaseDamage DOUBLE   NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (RoleId) REFERENCES NPCRole (Id)
+    id          SMALLINT NOT NULL AUTO_INCREMENT,
+    hitpoints   SMALLINT NOT NULL,
+    role_id     SMALLINT,
+    kis_hostile BOOLEAN  NOT NULL,
+    base_damage DOUBLE   NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (role_id) REFERENCES NPCRole (id)
 );
 
 CREATE TABLE ItemEffect
 (
-    Id   SMALLINT NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(20),
-    PRIMARY KEY (Id)
+    id             SMALLINT NOT NULL AUTO_INCREMENT,
+    item_effect_id VARCHAR(20),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE ItemCategory
 (
-    Id   SMALLINT NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(20),
-    PRIMARY KEY (Id)
+    id                 SMALLINT NOT NULL AUTO_INCREMENT,
+    item_category_name VARCHAR(20),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Rarity
 (
-    Id    SMALLINT    NOT NULL AUTO_INCREMENT,
-    Name  VARCHAR(20) NOT NULL,
-    Color VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    id          SMALLINT    NOT NULL AUTO_INCREMENT,
+    rarity_name VARCHAR(20) NOT NULL,
+    color       VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE Item
 (
-    Id             SMALLINT NOT NULL AUTO_INCREMENT,
-    Name           VARCHAR(20),
-    ItemCategoryId SMALLINT NOT NULL,
-    RarityId       SMALLINT NOT NULl,
-    Cost           SMALLINT NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (ItemCategoryId) REFERENCES ItemCategory (Id),
-    FOREIGN KEY (RarityId) REFERENCES Rarity (Id)
+    id               SMALLINT NOT NULL AUTO_INCREMENT,
+    item_name        VARCHAR(20),
+    item_category_id SMALLINT NOT NULL,
+    rarity_id        SMALLINT NOT NULL,
+    cost             SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (item_category_id) REFERENCES ItemCategory (id),
+    FOREIGN KEY (rarity_id) REFERENCES Rarity (id)
 );
 
 CREATE TABLE ItemXItemEffect
 (
-    Id           SMALLINT NOT NULL AUTO_INCREMENT,
-    ItemId       SMALLINT,
-    ItemEffectId SMALLINT,
-    Modifier     SMALLINT,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (ItemId) REFERENCES Item (Id),
-    FOREIGN KEY (ItemEffectId) REFERENCES ItemEffect (Id)
+    id             SMALLINT NOT NULL AUTO_INCREMENT,
+    item_id        SMALLINT,
+    item_effect_id SMALLINT,
+    modifier       SMALLINT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (item_id) REFERENCES Item (id),
+    FOREIGN KEY (item_effect_id) REFERENCES ItemEffect (id)
 );
 
 CREATE TABLE BlueprintXItemNeeded
 (
-    Id              SMALLINT NOT NULL AUTO_INCREMENT,
-    BlueprintItemId SMALLINT NOT NULL,
-    ItemNeededId    SMALLINT NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (BlueprintItemId) REFERENCES Item (Id),
-    FOREIGN KEY (ItemNeededId) REFERENCES Item (Id)
+    id                SMALLINT NOT NULL AUTO_INCREMENT,
+    blueprint_item_id SMALLINT NOT NULL,
+    item_needed_id    SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (blueprint_item_id) REFERENCES Item (id),
+    FOREIGN KEY (item_needed_id) REFERENCES Item (id)
 );
 
 CREATE TABLE Crafting
 (
-    Id              SMALLINT NOT NULL AUTO_INCREMENT,
-    BlueprintItemId SMALLINT NOT NULL,
-    ResultItemId    SMALLINT NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (BlueprintItemId) REFERENCES Item (Id),
-    FOREIGN KEY (ResultItemId) REFERENCES Item (Id)
+    id                SMALLINT NOT NULL AUTO_INCREMENT,
+    blueprint_item_id SMALLINT NOT NULL,
+    result_item_id    SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (blueprint_item_id) REFERENCES Item (id),
+    FOREIGN KEY (result_item_id) REFERENCES Item (id)
 
 );
 
 CREATE TABLE Skin
 (
-    Id     SMALLINT    NOT NULL AUTO_INCREMENT,
-    Name   VARCHAR(20) NOT NULL,
-    ItemId SMALLINT    NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (ItemId) REFERENCES Item (Id)
+    id        SMALLINT    NOT NULL AUTO_INCREMENT,
+    skin_name VARCHAR(20) NOT NULL,
+    item_id   SMALLINT    NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (item_id) REFERENCES Item (id)
 );
 
 CREATE TABLE InventoryXItem
 (
-    Id          SMALLINT NOT NULL AUTO_INCREMENT,
-    InventoryId SMALLINT NOT NULL,
-    ItemId      SMALLINT NOT NULL,
-    IsEquipped  BOOLEAN  NOT NULL,
-    Count       SMALLINT NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (ItemId) REFERENCES Item (Id),
-    FOREIGN KEY (InventoryId) REFERENCES Inventory (Id)
+    id           SMALLINT NOT NULL AUTO_INCREMENT,
+    inventory_id SMALLINT NOT NULL,
+    item_id      SMALLINT NOT NULL,
+    is_equipped  BOOLEAN  NOT NULL,
+    count        SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (item_id) REFERENCES Item (id),
+    FOREIGN KEY (inventory_id) REFERENCES Inventory (id)
 );
 
 CREATE TABLE EquippedSkin
 (
-    Id               SMALLINT NOT NULL AUTO_INCREMENT,
-    SkinId           SMALLINT NOT NULL,
-    InventoryXItemId SMALLINT NOT NULL,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (InventoryXItemId) REFERENCES InventoryXItem (Id),
-    FOREIGN KEY (SkinId) REFERENCES Skin (Id)
+    id                  SMALLINT NOT NULL AUTO_INCREMENT,
+    skin_id             SMALLINT NOT NULL,
+    inventory_x_item_id SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (inventory_x_item_id) REFERENCES InventoryXItem (id),
+    FOREIGN KEY (skin_id) REFERENCES Skin (id)
 );
 
 CREATE TABLE Economy
 (
-    CoinValue SMALLINT NOT NULL
+    coin_value SMALLINT NOT NULL
 );
 
 CREATE TABLE Kingdom
 (
-    Id   SMALLINT    NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    id           SMALLINT    NOT NULL AUTO_INCREMENT,
+    kingdom_name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE PlayerCustomization
 (
-    Id               SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    PlayerId         SMALLINT NOT NULL,
-    OutfitItemId     SMALLINT NOT NULL,
-    WeaponSkinItemId SMALLINT NOT NULL,
-    EmoteItemId      SMALLINT NOT NULL,
-    FOREIGN KEY (PlayerId) REFERENCES Player (Id)
+    id                  SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    player_id           SMALLINT NOT NULL,
+    outfit_item_id      SMALLINT NOT NULL,
+    weapon_skin_item_id SMALLINT NOT NULL,
+    emote_item_id       SMALLINT NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES Player (id)
 );
 
 CREATE TABLE TradeOffer
 (
-    Id           SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    FromPlayerId SMALLINT NOT NULL,
-    ToPlayerId   SMALLINT NOT NULL,
-    ItemId       SMALLINT NOT NULL,
-    Price        SMALLINT NOT NULL,
-    FOREIGN KEY (FromPlayerId) REFERENCES Player (Id),
-    FOREIGN KEY (ToPlayerId) REFERENCES Player (Id)
+    id             SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    from_player_id SMALLINT NOT NULL,
+    to_player_id   SMALLINT NOT NULL,
+    item_id        SMALLINT NOT NULL,
+    price          SMALLINT NOT NULL,
+    FOREIGN KEY (from_player_id) REFERENCES Player (id),
+    FOREIGN KEY (to_player_id) REFERENCES Player (id)
 );
 
 CREATE TABLE EventCondition
 (
-    Id            SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    AchievementId SMALLINT NOT NULL,
-    EventId       SMALLINT NOT NULL,
-    FOREIGN KEY (AchievementId) REFERENCES Achievement (Id),
-    FOREIGN KEY (EventId) REFERENCES Event (Id)
+    id             SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    achievement_id SMALLINT NOT NULL,
+    event_id       SMALLINT NOT NULL,
+    FOREIGN KEY (achievement_id) REFERENCES Achievement (id),
+    FOREIGN KEY (event_id) REFERENCES SpecialEvent (id)
 );
 
 CREATE TABLE PlayerXAchievement
 (
-    Id            SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    AchievementId SMALLINT NOT NULL,
-    PlayerId      SMALLINT NOT NULL,
-    Date          DATETIME NOT NULL,
-    FOREIGN KEY (AchievementId) REFERENCES Achievement (Id),
-    FOREIGN KEY (PlayerId) REFERENCES Player (Id)
+    id             SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    achievement_id SMALLINT NOT NULL,
+    player_id      SMALLINT NOT NULL,
+    date           DATETIME NOT NULL,
+    FOREIGN KEY (achievement_id) REFERENCES Achievement (id),
+    FOREIGN KEY (player_id) REFERENCES Player (id)
 );
 
 CREATE TABLE TeamXPlayerXRole
 (
-    Id         SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    PlayerId   SMALLINT NOT NULL,
-    TeamRoleId SMALLINT NOT NULL,
-    FOREIGN KEY (PlayerId) REFERENCES Player (Id),
-    FOREIGN KEY (TeamRoleId) REFERENCES TeamRole (Id)
+    id           SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    player_id    SMALLINT NOT NULL,
+    team_role_id SMALLINT NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES Player (id),
+    FOREIGN KEY (team_role_id) REFERENCES TeamRole (id)
 );
 
 CREATE TABLE ObjectiveXQuest
 (
-    Id           SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    ObjectiveId  SMALLINT NOT NULL,
-    QuestId      SMALLINT NOT NULL,
-    IsCurrent    BOOLEAN  NOT NULL,
-    PlayerId     SMALLINT NOT NULL,
-    DifficultyId SMALLINT NOT NULL,
-    FOREIGN KEY (ObjectiveId) REFERENCES Objective (Id),
-    FOREIGN KEY (QuestId) REFERENCES Quest (Id),
-    FOREIGN KEY (PlayerId) REFERENCES Player (Id),
-    FOREIGN KEY (DifficultyId) REFERENCES Difficulty (Id)
+    id            SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    objective_id  SMALLINT NOT NULL,
+    quest_id      SMALLINT NOT NULL,
+    is_current    BOOLEAN  NOT NULL,
+    player_id     SMALLINT NOT NULL,
+    difficulty_id SMALLINT NOT NULL,
+    FOREIGN KEY (objective_id) REFERENCES Objective (id),
+    FOREIGN KEY (quest_id) REFERENCES Quest (id),
+    FOREIGN KEY (player_id) REFERENCES Player (id),
+    FOREIGN KEY (difficulty_id) REFERENCES Difficulty (id)
 );
 
 CREATE TABLE PlayerAnalytics
 (
-    Id                 SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    PlayerId           SMALLINT NOT NULL,
-    HoursPlayed        DOUBLE   NOT NULL,
-    NumberOfDeaths     SMALLINT NOT NULL,
-    ItemsCrafted       SMALLINT NOT NULL,
-    NPCEncountered     SMALLINT NOT NULL,
-    PlayersEncountered SMALLINT NOT NULL,
-    FOREIGN KEY (PlayerId) REFERENCES Player (Id)
+    id                  SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    player_id           SMALLINT NOT NULL,
+    hours_played        DOUBLE   NOT NULL,
+    number_of_deaths    SMALLINT NOT NULL,
+    items_crafted       SMALLINT NOT NULL,
+    npcs_encountered    SMALLINT NOT NULL,
+    players_encountered SMALLINT NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES Player (id)
 );
 
 CREATE TABLE GuildXPlayer
 (
-    Id       SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    PlayerId SMALLINT NOT NULL,
-    GuildId  SMALLINT NOT NULL,
-    FOREIGN KEY (PlayerId) REFERENCES Player (Id),
-    FOREIGN KEY (GuildId) REFERENCES Guild (Id)
+    id        SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    player_id SMALLINT NOT NULL,
+    guild_id  SMALLINT NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES Player (id),
+    FOREIGN KEY (guild_id) REFERENCES Guild (id)
 );
-""")
+"""))
