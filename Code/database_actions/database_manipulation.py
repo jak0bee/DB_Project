@@ -26,6 +26,14 @@ class DatabaseManipulation:
 
         self.connection.execute(text(f"INSERT INTO {table_name}({columns}) VALUES {data}"))
 
+    def check(self, table_name: str, id: int) -> bool:
+        value = None
+        try:
+            value = self.connection.execute(text(f"SELECT * FROM {table_name} WHERE Id = {id}"))
+        except NameError:
+            return False
+
+        return value is not None
 
     def drop_all_tables(self) -> None:
         meta = MetaData()

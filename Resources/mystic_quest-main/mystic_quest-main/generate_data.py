@@ -53,14 +53,7 @@ def load_csv_to_list(file_name, entity_type):
         FileNotFoundError: Raised if the file specified by file_name is not found.
         Exception: Catches all other exceptions and prints an error message.
 
-            Example Usage:
-            >>> result = load_csv_to_list('Resources/mystic_quest-main/mystic_quest-main/data/dialogues.csv', 'dialogue')
-            >>> isinstance(result, tuple) and len(result) == 2
-            True
-            >>> all(isinstance(item, str) for item in result[0])
-            True
-            >>> isinstance(result[1], list) and (not result[1] or all(isinstance(item, str) for item in result[1]))
-            True
+
     """
     loaded_list = []
     loaded_list_second_column = []
@@ -213,13 +206,6 @@ def generate_word_like_string(length):
     Returns:
     str: A generated word-like string of the specified length.
 
-    Example Usage:
-    >>> generate_word_like_string(5)
-    'pralo'
-    
-    >>> generate_word_like_string(8)
-    'tramisca'
-
     Notes:
     - The function uses clusters of consonants and individual vowels to create realistic word-like strings.
     - Phoneme structures are simulated to ensure that clusters of vowels and consonants are reasonable.
@@ -263,12 +249,6 @@ def generate_relation(entity1_type, entity2_type):
         - value (str or None): A string representing the relation type or None if no relation is defined.
         - additional_entity_type (str or None): The type of an additional entity involved in the relation, or None.
 
-    Example Usage:
-    >>> generate_relation("player", "npc")
-    ('Talked', 'dialogue')
-    
-    >>> generate_relation("npc", "quest")
-    ('Gave Quest', None)
 
     Notes:
     - The function defines predefined relations between various game entity types.
