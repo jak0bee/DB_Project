@@ -1,42 +1,37 @@
 table_creation_statements = [
-    """CREATE TABLE Class
-    (
-        id         SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        class_name VARCHAR(20)
-    )""",
     """CREATE TABLE SpecialEvent
     (
         id                 SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        special_event_name VARCHAR(20) NOT NULL,
+        special_event_name VARCHAR(20) NOT NULL UNIQUE,
         start_date         DATETIME    NOT NULL,
         end_date           DATETIME
     )""",
     """CREATE TABLE Achievement
     (
-        Id               SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        achievement_name VARCHAR(35) NOT NULL
+        id               SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        achievement_name VARCHAR(35) NOT NULL UNIQUE
     )""",
     """CREATE TABLE Ability
     (
         id           SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        ability_name VARCHAR(30) NOT NULL
+        ability_name VARCHAR(30) NOT NULL UNIQUE
     )""",
     """CREATE TABLE Talent
     (
         id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        talent_name VARCHAR(30) NOT NULL
+        talent_name VARCHAR(30) NOT NULL UNIQUE
     )""",
     """CREATE TABLE Team
     (
         id                SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        team_name         VARCHAR(30) NOT NULL,
+        team_name         VARCHAR(30) NOT NULL UNIQUE,
         kingdom           VARCHAR(50) NOT NULL,
         number_of_members SMALLINT    NOT NULL DEFAULT 0
     )""",
     """CREATE TABLE Reward
     (
         id          SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        reward_name SMALLINT NOT NULL
+        reward_name SMALLINT NOT NULL UNIQUE
     )""",
     """CREATE TABLE Objective
     (
@@ -46,7 +41,7 @@ table_creation_statements = [
     """CREATE TABLE Difficulty
     (
         id              SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        difficulty_name VARCHAR(20)
+        difficulty_name VARCHAR(20) UNIQUE
     )""",
     """CREATE TABLE SkillTree
     (
@@ -58,29 +53,29 @@ table_creation_statements = [
     )""",
     """CREATE TABLE Player
     (
-        id            SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        player_name   VARCHAR(100) NOT NULL,
-        hit_points    SMALLINT     NOT NULL DEFAULT 100,
-        race          VARCHAR(50)  NOT NULL,
-        skill_tree_id SMALLINT     NOT NULL,
-        class         VARCHAR(50)  NOT NULL,
-        coins         SMALLINT              DEFAULT 0,
-        last_login    DATETIME,
-        FOREIGN KEY (skill_tree_id) REFERENCES SkillTree (id)
+        id          SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        player_name VARCHAR(100) NOT NULL UNIQUE,
+        hit_points  SMALLINT     NOT NULL DEFAULT 100,
+        race        VARCHAR(50)  NOT NULL,
+        class       VARCHAR(50)  NOT NULL,
+        guild_id    SMALLINT,
+        coins       SMALLINT              DEFAULT 0,
+        last_login  DATETIME
     )""",
     """CREATE TABLE Guild
     (
         id                SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        guild_name        VARCHAR(50) NOT NULL,
+        guild_name        VARCHAR(50) NOT NULL UNIQUE,
         guild_category    VARCHAR(50) NOT NULL,
-        leader            VARCHAR(30) NOT NULL,
+        leader_id         SMALLINT    NOT NULL,
         number_of_members SMALLINT    NOT NULL,
-        founded_year      SMALLINT    NOT NULL
+        founded_year      SMALLINT    NOT NULL,
+        FOREIGN KEY (leader_id) REFERENCES Player (id)
     )""",
     """CREATE TABLE Quest
     (
         id                SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        quest_name        VARCHAR(30) NOT NULL,
+        quest_name        VARCHAR(30) NOT NULL UNIQUE,
         reward_id         SMALLINT,
         objective_id      SMALLINT    NOT NULL,
         completed_as_team BOOLEAN     NOT NULL,
@@ -90,7 +85,7 @@ table_creation_statements = [
     """CREATE TABLE TeamRole
     (
         id             SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        team_role_name VARCHAR(30) NOT NULL,
+        team_role_name VARCHAR(30) NOT NULL UNIQUE,
         team_id        SMALLINT    NOT NULL,
         FOREIGN KEY (team_id) REFERENCES Team (id)
     )""",
@@ -113,20 +108,12 @@ table_creation_statements = [
         buy_modifier      SMALLINT    NOT NULL,
         sell_modifier     SMALLINT    NOT NULL
     )""",
-    """CREATE TABLE NPCRole
-    (
-        id            SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        npc_role_name VARCHAR(20) NOT NULL
-    )""",
     """CREATE TABLE NPC
     (
-        id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        npc_name    VARCHAR(50) NOT NULL,
-        hit_points  SMALLINT    NOT NULL DEFAULT 100,
-        role_id     SMALLINT,
-        is_hostile  BOOLEAN     NOT NULL,
-        base_damage DOUBLE      NOT NULL,
-        FOREIGN KEY (role_id) REFERENCES NPCRole (id)
+        id       SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        npc_name VARCHAR(50) NOT NULL,
+        npc_role VARCHAR(50) NOT NULL,
+        npc_type VARCHAR(50) NOT NULL
     )""",
     """CREATE TABLE ItemEffect
     (
@@ -138,21 +125,13 @@ table_creation_statements = [
         id                 SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         item_category_name VARCHAR(20)
     )""",
-    """CREATE TABLE Rarity
-    (
-        id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        rarity_name VARCHAR(20) NOT NULL,
-        color       VARCHAR(20) NOT NULL
-    )""",
     """CREATE TABLE Item
     (
         id               SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        item_name        VARCHAR(20),
+        item_name        VARCHAR(40) UNIQUE,
         item_category_id SMALLINT NOT NULL,
-        rarity_id        SMALLINT NOT NULL,
         cost             SMALLINT NOT NULL DEFAULT 0,
-        FOREIGN KEY (item_category_id) REFERENCES ItemCategory (id),
-        FOREIGN KEY (rarity_id) REFERENCES Rarity (id)
+        FOREIGN KEY (item_category_id) REFERENCES ItemCategory (id)
     )""",
     """CREATE TABLE ItemXItemEffect
     (
@@ -183,7 +162,7 @@ table_creation_statements = [
     """CREATE TABLE Skin
     (
         id        SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        skin_name VARCHAR(20) NOT NULL,
+        skin_name VARCHAR(20) NOT NULL UNIQUE,
         item_id   SMALLINT    NOT NULL,
         FOREIGN KEY (item_id) REFERENCES Item (id)
     )""",
@@ -209,11 +188,6 @@ table_creation_statements = [
     (
         coin_value SMALLINT NOT NULL
     )""",
-    """CREATE TABLE Kingdom
-    (
-        id           SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        kingdom_name VARCHAR(20) NOT NULL
-    )""",
     """CREATE TABLE PlayerCustomization
     (
         id                  SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -233,7 +207,7 @@ table_creation_statements = [
         FOREIGN KEY (from_player_id) REFERENCES Player (id),
         FOREIGN KEY (to_player_id) REFERENCES Player (id)
     )""",
-    """CREATE TABLE SpecialEventCondition
+    """CREATE TABLE EventCondition
     (
         id             SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         achievement_id SMALLINT NOT NULL,
@@ -282,32 +256,32 @@ table_creation_statements = [
         players_encountered SMALLINT NOT NULL,
         FOREIGN KEY (player_id) REFERENCES Player (id)
     )""",
-    """CREATE TABLE GuildXPlayer
-    (
-        id        SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        player_id SMALLINT NOT NULL,
-        guild_id  SMALLINT NOT NULL,
-        FOREIGN KEY (player_id) REFERENCES Player (id),
-        FOREIGN KEY (guild_id) REFERENCES Guild (id)
-    )""",
     """CREATE TABLE Questions
     (
         id             SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        content        VARCHAR(100) NOT NULL,
+        content        VARCHAR(100) NOT NULL UNIQUE,
         choice_options SMALLINT     NOT NULL,
         emotion        SMALLINT     NOT NULL
     )""",
+    """CREATE TABLE Enemy
+    (
+        enemy_id   SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        enemy_name VARCHAR(50)  NOT NULL UNIQUE,
+        enemy_type VARCHAR(50),
+        hit_points SMALLINT     NOT NULL,
+        war_cry    VARCHAR(100) NOT NULL
+    )""",
     """CREATE TABLE Event
-(
-    id          SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    eventType   VARCHAR(20) NOT NULL,
-    timestamp   DATETIME    NOT NULL,
-    entity1Id   SMALLINT    NOT NULL,
-    entity1Type VARCHAR(20) NOT NULL,
-    entity2Id   SMALLINT    NOT NULL,
-    entity2Type VARCHAR(20) NOT NULL,
-    value   VARCHAR(20) NOT NULL,
-    additionalEntityId SMALLINT,
-    additionalEntityType VARCHAR(20)
-)"""
+    (
+        id                     SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        event_type             VARCHAR(20) NOT NULL,
+        timestamp              DATETIME    NOT NULL,
+        entity1_id             SMALLINT    NOT NULL,
+        entity1_type           VARCHAR(20) NOT NULL,
+        entity2_id             SMALLINT    NOT NULL,
+        entity2_type           VARCHAR(20) NOT NULL,
+        value                  VARCHAR(20) NOT NULL,
+        additional_entity_id   SMALLINT,
+        additional_entity_type VARCHAR(20)
+    )"""
 ]

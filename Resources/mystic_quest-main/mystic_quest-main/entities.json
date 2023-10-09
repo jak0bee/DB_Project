@@ -139,11 +139,11 @@
           "value_source": "enemy_types"
         },
         {
-          "name": "hitpoints",
+          "name": "hit_points",
           "datatype": "int"
         },
         {
-          "name": "warcry",
+          "name": "war_cry",
           "datatype": "string"
         }
       ]
@@ -233,7 +233,7 @@
           "type": "primary_key"
         },
         {
-          "name": "npc_type",
+          "name": "npc_role",
           "datatype": "string",
           "value_source": "npc_types"
         },
