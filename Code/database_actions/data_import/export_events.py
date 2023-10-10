@@ -1,10 +1,7 @@
-import json
-import re
 import time
 
 from database_actions.data_import.import_events import import_events
 from database_actions.database_manipulation import DatabaseManipulation
-from utils.special_event import SpecialEvent
 
 
 def export_events():

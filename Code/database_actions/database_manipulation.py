@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, text, MetaData
 from database_actions import database_url
-from sqlalchemy.exc import ProgrammingError,OperationalError
 
 
 class DatabaseManipulation:
@@ -8,14 +7,11 @@ class DatabaseManipulation:
         self.engine = create_engine(database_url)
         self.connection = self.engine.connect()
 
-
     def create_table(self, statement: str) -> None:
         self.connection.execute(text(statement))
 
-
     def execute_command(self, command: text) -> None:
         self.connection.execute(command)
-
 
     def insert(self, table_name: str, columns: list, values: list) -> None:
         """
@@ -49,13 +45,11 @@ class DatabaseManipulation:
         query_string = f"SELECT * FROM {table_name} WHERE Id = {id} LIMIT 1"
         query = text(query_string)
 
-
         # Execute the query
         result = self.connection.execute(query).fetchone()
 
         # If the result is not None, the ID exists in the table
         return result is not None
-
 
     def drop_all_tables(self) -> None:
         meta = MetaData()

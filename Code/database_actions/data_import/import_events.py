@@ -18,9 +18,8 @@ def import_events(file_name):
     'player_with_guild'
     """
     events = [SpecialEvent()]
-    type_properties = ["event_type", "timestamp", "entity1", "entity2", "value", "additional_entity_type",
-                       "additional_entity"]
-    json_types = ["entity1", "entity2","additional_entity"]
+    type_properties = ["event_type", "timestamp", "entity1", "entity2", "value", "additional_entity_type", "additional_entity"]
+    json_types = ["entity1", "entity2", "additional_entity"]
     with open(file_name, "r") as file:
         lines = file.readlines()
         for i, line in enumerate(lines):
