@@ -55,7 +55,7 @@ table_creation_statements = [
     """CREATE TABLE Player
     (
         id          SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        player_name VARCHAR(100) NOT NULL UNIQUE,
+        player_name VARCHAR(100) NOT NULL,
         hit_points  SMALLINT     NOT NULL DEFAULT 100,
         race        VARCHAR(50)  NOT NULL,
         class       VARCHAR(50)  NOT NULL,
@@ -283,9 +283,9 @@ table_creation_statements = [
     )""",
     """CREATE TABLE Dialogue
     (
-        id             SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        content        VARCHAR(50) NOT NULL,
+        id            SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        content       VARCHAR(50) NOT NULL,
         choice_option SMALLINT    NOT NULL,
-        emotion        SMALLINT
+        emotion       SMALLINT
     )"""
 ]

@@ -7,11 +7,14 @@ class DatabaseManipulation:
         self.engine = create_engine(database_url)
         self.connection = self.engine.connect()
 
+
     def create_table(self, statement: str) -> None:
         self.connection.execute(text(statement))
 
+
     def execute_command(self, command: text) -> None:
         self.connection.execute(command)
+
 
     def insert(self, table_name: str, columns: list, values: list) -> None:
         """
@@ -24,7 +27,7 @@ class DatabaseManipulation:
         """
 
         for v in values:
-            if not (v.isdigit() or not v.count('.') == 1 and v.replace('.', '').isdigit()):
+            if not (v.isdigit() or (v.count('.') == 1 and v.replace('.', '').isdigit())):
                 if v == "null":
                     values[values.index(v)] = "null"
                 else:
@@ -33,9 +36,10 @@ class DatabaseManipulation:
         cols = f"({', '.join(columns)})"
         vals = f"({', '.join(values)})"
         query = f"INSERT INTO {table_name} {cols} VALUES {vals};"
-        self.connection.execute(text(query))
-        self.connection.commit()
+        # self.connection.execute(text(query))
+        # self.connection.commit()
         print(query)
+
 
     def check(self, table_name: str, id: int) -> bool:
         # Format table name (assuming only the first letter should be uppercase)
@@ -50,6 +54,7 @@ class DatabaseManipulation:
 
         # If the result is not None, the ID exists in the table
         return result is not None
+
 
     def drop_all_tables(self) -> None:
         meta = MetaData()
