@@ -13,7 +13,11 @@ class DatabaseManipulation:
         self.connection.execute(text(statement))
 
 
-    def insert(self, table_name: str, values: list, columns: list) -> None:
+    def execute_command(self, command: text) -> None:
+        self.connection.execute(command)
+
+
+    def insert(self, table_name: str, columns: list, values: list) -> None:
         """
         Takes the name of a table and a list of values of a row and inserts it into the given table.
 
@@ -23,9 +27,15 @@ class DatabaseManipulation:
             values: The list of variables to be set as values of respective columns in the row added to the table.
         """
 
-        data = f"({', '.join(values)})"
+        for v in values:
+            if not (v.isdigit() or not v.count('.') == 1 and v.replace('.', '').isdigit()):
+                values[values.index(v)] = f"'{v}'"
 
-        self.connection.execute(text(f"INSERT INTO {table_name}({columns}) VALUES {data}"))
+        cols = f"({', '.join(columns)})"
+        vals = f"({', '.join(values)})"
+
+        # self.connection.execute(text(f"INSERT INTO {table_name}{cols} VALUES {vals}"))
+        print(f"INSERT INTO {table_name}{cols} VALUES {vals};")
 
     def check(self, table_name: str, id: int) -> bool:
         # Format table name (assuming only the first letter should be uppercase)

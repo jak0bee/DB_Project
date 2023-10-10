@@ -1,7 +1,7 @@
 {
   "entities": [
     {
-      "name": "questions",
+      "name": "Question",
       "type": "dialogue",
       "fields": [
         {
@@ -88,7 +88,7 @@
           "value_source": "class_names"
         },
         {
-          "name": "guild",
+          "name": "guild_name",
           "datatype": "string",
           "value_source": "guild_names"
         },
@@ -183,18 +183,18 @@
           "type": "primary_key"
         },
         {
-          "name": "event_name",
+          "name": "special_event_name",
           "datatype": "string",
           "value_source": "event_names"
         },
         {
-          "name": "event_time",
+          "name": "time",
           "datatype": "int"
         }
       ]
     },
     {
-      "name": "NPC",
+      "name": "Npc",
       "type": "npc",
       "fields": [
         {
@@ -203,7 +203,7 @@
           "type": "primary_key"
         },
         {
-          "name": "npc_type",
+          "name": "npc_role",
           "datatype": "string",
           "value_source": "npc_types"
         },
@@ -224,7 +224,7 @@
       ]
     },
     {
-      "name": "Vendors",
+      "name": "Vendor",
       "type": "npc",
       "fields": [
         {
