@@ -38,6 +38,7 @@ class DatabaseManipulation:
         vals = f"({', '.join(values)})"
         query = f"INSERT INTO {table_name} {cols} VALUES {vals};"
         self.connection.execute(text(query))
+        self.connection.commit()
         print(query)
 
     def check(self, table_name: str, id: int) -> bool:
