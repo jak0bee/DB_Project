@@ -20,6 +20,7 @@ def import_events(file_name):
     events = [SpecialEvent()]
     type_properties = ["event_type", "timestamp", "entity1", "entity2", "value", "additional_entity_type",
                        "additional_entity"]
+    json_types = ["entity1", "entity2","additional_entity"]
     with open(file_name, "r") as file:
         lines = file.readlines()
         for i, line in enumerate(lines):
@@ -32,9 +33,12 @@ def import_events(file_name):
             elif event_property in type_properties:  # check if the value in [] is valid
                 line = line[1:]
                 line = ' '.join(line)  # here the line is what needs to be inserted in the event_property of the last event
+                line_is_json = False
                 if is_json(line.replace("'", '"')):
+                    line_is_json = True
                     line = json.loads(line.replace('\'', '"'))
-                setattr(events[-1], event_property, line)  # insert line into the event_property (of this line), for the last event
+                if (line_is_json and event_property in json_types) or event_property not in json_types:
+                    setattr(events[-1], event_property, line)  # insert line into the event_property (of this line), for the last event
     return events
 
 

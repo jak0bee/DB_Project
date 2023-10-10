@@ -22,21 +22,24 @@ def export_events():
         print("currently at: ", i, ", from ", le)
         try:
             entity1 = dbm.check(event.entity1_type, event.entity1['id'])
+            if not entity1:
+                print("entity one does not exist: ", event.entity1_type, event.entity1)
             entity2 = True
             if entity1:
                 if event.entity2_type == 'dialogue':
-                    dbm.insert(table_name ='Dialogue', columns = ["id", "content", "choice_option", "emotion"], values = [
+                    if event.entity2 is None or dbm.check(event.entity2_type, event.entity2['id']):
+                        print("Dialogue not inserted ")
+                        continue
+                    dbm.insert(table_name='Dialogue', columns=["id", "content", "choice_option", "emotion"], values=[
                         str(event.entity2.get("id", "null")),
                         str(event.entity2.get("content", "null")),
                         str(event.entity2.get("choice_options", "null")),
-                        str(event.entity2.get("emotion", "null"))
-                    ]
-                               )
+                        str(event.entity2.get("emotion", "null"))])
                 else:
                     entity2 = dbm.check(event.entity2_type, event.entity2['id'])
             if entity1 and entity2:
                 print("Inserting an event")
-                dbm.insert(table_name = "Event",values =  event.values(), columns = columns)
+                dbm.insert(table_name="Event", values=event.values(), columns=columns)
                 print("inserted")
         except TypeError:
             continue
