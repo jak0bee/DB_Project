@@ -29,13 +29,16 @@ class DatabaseManipulation:
 
         for v in values:
             if not (v.isdigit() or not v.count('.') == 1 and v.replace('.', '').isdigit()):
-                values[values.index(v)] = f"'{v}'"
+                if v == "null":
+                    values[values.index(v)] = "null"
+                else:
+                    values[values.index(v)] = f"'{v}'"
 
         cols = f"({', '.join(columns)})"
         vals = f"({', '.join(values)})"
-
-        # self.connection.execute(text(f"INSERT INTO {table_name}{cols} VALUES {vals}"))
-        print(f"INSERT INTO {table_name}{cols} VALUES {vals};")
+        query = f"INSERT INTO {table_name} {cols} VALUES {vals};"
+        self.connection.execute(text(query))
+        print(query)
 
     def check(self, table_name: str, id: int) -> bool:
         # Format table name (assuming only the first letter should be uppercase)

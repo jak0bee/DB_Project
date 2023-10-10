@@ -2,8 +2,8 @@ import re
 
 
 class SpecialEvent:
-    def __init__(self, event_type=None, timestamp=None, entity1=None, entity2=None, value=None,
-                 additional_entity_type=None, additional_entity=None):
+    def __init__(self, event_type="null", timestamp="null", entity1=None, entity2=None, value="null",
+                 additional_entity_type="null", additional_entity=None):
         self.event_type = event_type
         self.timestamp = timestamp
         self.entity1 = entity1
@@ -34,3 +34,16 @@ class SpecialEvent:
                 super().__setattr__('entity1_type', entity1_type)
                 super().__setattr__('entity2_type', entity2_type)
         super().__setattr__(name, value)
+
+    def values(self):
+        return [
+            str(self.event_type),
+            str(self.timestamp),
+            str(self.entity1.get('id', "null")) if self.entity1 else "null",
+            str(self.entity1_type),
+            str(self.entity2.get('id', "null")) if self.entity2 else "null",
+            str(self.entity2_type),
+            str(self.value),
+            str(self.additional_entity.get('id', "null")) if self.additional_entity else "null",
+            str(self.additional_entity_type)
+        ]

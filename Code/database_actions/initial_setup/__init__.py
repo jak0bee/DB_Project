@@ -280,5 +280,12 @@ table_creation_statements = [
         value                  VARCHAR(20) NOT NULL,
         additional_entity_id   SMALLINT,
         additional_entity_type VARCHAR(20)
+    )""",
+    """CREATE TABLE Dialogue
+    (
+        id             SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        content        VARCHAR(50) NOT NULL,
+        choice_options SMALLINT    NOT NULL,
+        emotion        SMALLINT
     )"""
 ]
