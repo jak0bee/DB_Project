@@ -285,7 +285,7 @@ table_creation_statements = [
     (
         id             SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
         content        VARCHAR(50) NOT NULL,
-        choice_options SMALLINT    NOT NULL,
+        choice_option SMALLINT    NOT NULL,
         emotion        SMALLINT
     )"""
 ]
