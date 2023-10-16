@@ -287,5 +287,30 @@ table_creation_statements = [
         content       VARCHAR(50) NOT NULL,
         choice_option SMALLINT    NOT NULL,
         emotion       SMALLINT
-    )"""
+    )""",
+    """CREATE TABLE ChatSession
+    (
+        id           SMALLINT PRIMARY KEY AUTO_INCREMENT,
+        session_type VARCHAR(50) NOT NULL,
+        session_name VARCHAR(200),
+        created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );""",
+    """CREATE TABLE ChatMessage
+    (
+        id           SMALLINT PRIMARY KEY AUTO_INCREMENT,
+        session_id   SMALLINT,
+        sender_id    SMALLINT,
+        message_text TEXT NOT NULL,
+        sent_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (session_id) REFERENCES ChatSession (id),
+        FOREIGN KEY (sender_id) REFERENCES Player (id)
+    );""",
+    """CREATE TABLE GroupChatMember
+    (
+        member_id  SMALLINT PRIMARY KEY AUTO_INCREMENT,
+        session_id SMALLINT,
+        player_id  SMALLINT,
+        FOREIGN KEY (session_id) REFERENCES ChatSession (id),
+        FOREIGN KEY (player_id) REFERENCES Player (id)
+    );"""
 ]

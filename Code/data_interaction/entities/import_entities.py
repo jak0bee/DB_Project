@@ -1,4 +1,3 @@
-from database_actions.data.entities.entities import load_guild
 from database_actions.database_manipulation import DatabaseManipulation
 
 

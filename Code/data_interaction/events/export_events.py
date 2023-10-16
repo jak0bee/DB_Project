@@ -1,6 +1,6 @@
 import time
 
-from database_actions.data_import.import_events import import_events
+from import_events import import_events
 from database_actions.database_manipulation import DatabaseManipulation
 
 
