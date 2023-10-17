@@ -50,8 +50,7 @@ table_creation_statements = [
         leader            VARCHAR(30) NOT NULL,
         number_of_members SMALLINT    NOT NULL,
         founded_year      SMALLINT    NOT NULL
-    )
-    """,
+    )""",
     """CREATE TABLE Player
     (
         id          SMALLINT     NOT NULL AUTO_INCREMENT PRIMARY KEY,
