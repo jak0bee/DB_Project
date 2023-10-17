@@ -6,7 +6,7 @@ Objects of these classes can each represent an entity and help with e.g. importi
 from sqlalchemy import Column, String, ForeignKey, DateTime, Numeric, SmallInteger
 from sqlalchemy.orm import relationship
 
-from chat import db
+from database_actions import db
 
 
 class Enemy(db.Model):

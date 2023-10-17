@@ -1,4 +1,4 @@
-from chat import db
+from database_actions import db
 
 
 class ChatSession(db.Model):
