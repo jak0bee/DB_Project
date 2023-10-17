@@ -1,7 +1,7 @@
 from flask import request, jsonify
 
 from chat.tables.chat_tables import ChatSession, ChatMessage, GroupChatMember
-from database_actions import app, db
+from database_actions import app, db, socket
 from utils.entry_to_dictionary import entry_to_dict
 
 
@@ -73,3 +73,10 @@ def fetch_group_members(session_id):
 def fetch_chat_sessions(player_id):
     sessions = db.session.query(ChatSession).join(GroupChatMember).filter(GroupChatMember.player_id == player_id).all()
     return jsonify([entry_to_dict(session) for session in sessions]), 200
+
+
+@socket.on('send_message')
+def handle_send_message(data):
+    # Save the message to the database, if needed
+    # Broadcast the message to all connected clients or specific rooms
+    socket.emit('receive_message', data, broadcast=True)
