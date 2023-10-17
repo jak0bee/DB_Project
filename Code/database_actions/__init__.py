@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -8,5 +9,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+socket = SocketIO(app)
 
 db = SQLAlchemy(app)
