@@ -1,0 +1,35 @@
+WITH PlayersJoining AS (
+    SELECT
+        Guild.id AS GuildId,
+         Guild.guild_name AS GuildName,
+        Player.id AS PlayerId
+    FROM Event
+    INNER JOIN Guild ON Guild.id = entity2_id
+    INNER JOIN Player on Event.entity1_id = Player.guild_id
+    WHERE event_type LIKE '%player_with_guild%' AND value = 'Joined'
+),PlayersLeaving AS (
+        SELECT
+        Guild.id AS GuildId,
+        Guild.guild_name AS GuildName,
+        Player.id AS PlayerId
+    FROM Event
+    INNER JOIN Guild ON Guild.id = entity2_id
+    INNER JOIN Player on Event.entity1_id = Player.guild_id
+    INNER JOIN PlayersJoining ON PlayersJoining.GuildId = Guild.Id AND PlayersJoining.PlayerId = Player.Id
+    WHERE event_type LIKE '%player_with_guild%' AND value = 'Left'
+), AllPlayers AS (
+    SELECT
+        PlayersJoining.GuildId AS GuildId
+        ,PlayersJoining.GuildName AS GuildName
+        ,COUNT(PlayersJoining.PlayerId) AS NumberOfPlayersJoining
+        ,COUNT(PlayersLeaving.PlayerId) AS NumberOfPlayersLeaving
+    FROM PlayersJoining
+    LEFT JOIN PlayersLeaving ON PlayersJoining.PlayerId = PlayersLeaving.PlayerId AND PlayersJoining.GuildId = PlayersLeaving.GuildId
+    GROUP BY PlayersJoining.GuildId, PlayersJoining.GuildName
+    )
+SELECT
+        GuildId
+        ,GuildName
+        ,NumberOfPlayersJoining - NumberOfPlayersLeaving AS NumberOfCurrentPlayers
+FROM AllPlayers
+ORDER BY NumberOfCurrentPlayers DESC;
