@@ -31,4 +31,5 @@ message_entry.pack(padx=20, pady=20, side=tk.LEFT)
 send_button = tk.Button(app, text="Send", command=send_message)
 send_button.pack(padx=20, side=tk.LEFT)
 
+
 app.mainloop()
