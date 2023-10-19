@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import font as tkFont
 
@@ -20,13 +21,8 @@ def prevent_highlight(event):
 
 
 def load_custom_font(font_path):
-    font_name = "customFont"  # You can give any name you like
-    app.tk.call("source", "/path/to/your/awthemes-10.3.0.tcl")
-    app.tk.call("package", "require", "awthemes")
-    app.tk.call("font", "create", font_name, "-family", font_name, "-size", 12, "-weight", "bold")
-    app.tk.call("set", "awthemes::theme", "awdark")
-    app.tk.call("style", "theme", "use", "awdark")
-    app.tk.call("font", "configure", font_name, "-file", font_path)
+    # Register the custom font and return its name
+    font_name = tkFont.Font(file=font_path).actual()['family']
     return font_name
 
 
@@ -46,7 +42,7 @@ chat_text = tk.Text(chat_frame, wrap=tk.WORD, font=("Arial", 16), height=20, bg=
 chat_text.grid(row=0, column=0, sticky="nsew")
 chat_text.config(takefocus=0)
 
-custom_font_name = load_custom_font('Resources/fonts/Bender-Thin.otf')
+custom_font_name = load_custom_font('../../../Resources/fonts/Bender-Thin.otf')
 
 chat_text.tag_configure('sender_tag', font=(custom_font_name, 12))
 chat_text.tag_configure('green_tag', foreground='#00FF00')
