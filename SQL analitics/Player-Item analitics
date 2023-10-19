@@ -1,0 +1,11 @@
+SELECT
+    timestamp
+,Player.id AS PlayerId
+,player_name AS PlayerName
+,Item.id AS ItemId
+,Item.item_name AS ItemName
+,Item.cost AS ItemCost
+FROM Event
+INNER JOIN Player ON entity1_id = Player.id
+INNER JOIN Item ON additional_entity_id = Item.id
+WHERE event_type = 'player_with_npc'  AND value = 'Sold To';
