@@ -1,3 +1,4 @@
+#Most Popular Guilds
 WITH PlayersJoining AS (
     SELECT
         Guild.id AS GuildId,
@@ -30,6 +31,8 @@ WITH PlayersJoining AS (
 SELECT
         GuildId
         ,GuildName
+        ,G.guild_category
         ,NumberOfPlayersJoining - NumberOfPlayersLeaving AS NumberOfCurrentPlayers
 FROM AllPlayers
+INNER JOIN Guild AS G ON AllPlayers.GuildId = G.id
 ORDER BY NumberOfCurrentPlayers DESC;

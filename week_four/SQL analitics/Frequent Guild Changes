@@ -1,8 +1,13 @@
 #Frequent Guild Changes
 SELECT
 timestamp AS TimeJoined
-,P.*
-,G.*
+,P.id
+,P.player_name
+,P.class
+,P.race
+,G.id
+,G.guild_name
+,G.guild_category
 FROM Event
 INNER JOIN Player AS P ON P.Id = entity1_id
 INNER JOIN Guild G on entity2_id = G.id
