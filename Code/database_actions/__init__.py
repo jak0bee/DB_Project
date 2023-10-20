@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy

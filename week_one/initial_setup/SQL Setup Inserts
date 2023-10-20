@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 INSERT INTO ActionHouse(action_house_name, buy_modifier, sell_modifier)
 VALUES('RaciborzMarket', 5, 10)
      ,('WarszawaMarket', 4, 5)

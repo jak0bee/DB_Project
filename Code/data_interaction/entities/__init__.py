@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 from data_interaction.entities.entity_objects import *
 
 

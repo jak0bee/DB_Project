@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 from flask import request, jsonify
 
 from chat.tables.chat_tables import ChatSession, ChatMessage, GroupChatMember

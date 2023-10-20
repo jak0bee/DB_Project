@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 import tkinter as tk
 from PIL import ImageTk
 from PIL import Image

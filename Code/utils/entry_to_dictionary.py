@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy.model import Model
 

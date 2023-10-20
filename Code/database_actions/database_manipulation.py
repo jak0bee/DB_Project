@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 from sqlalchemy.exc import SQLAlchemyError
 
 from database_actions import db

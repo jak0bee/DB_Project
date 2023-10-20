@@ -1,3 +1,4 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
 """
 This module provides classes defining the structure of entities in the game.
 Objects of these classes can each represent an entity and help with e.g. importing them to the database.
