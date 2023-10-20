@@ -1,0 +1,9 @@
+#Frequent Guild Changes
+SELECT
+timestamp AS TimeJoined
+,P.*
+,G.*
+FROM Event
+INNER JOIN Player AS P ON P.Id = entity1_id
+INNER JOIN Guild G on entity2_id = G.id
+WHERE event_type = 'player_with_guild' AND value = 'Joined'

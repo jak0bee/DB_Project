@@ -1,0 +1,24 @@
+#Best PvE players (what was exported to PBI)
+SELECT
+timestamp
+,player_name
+,P.id
+,E.id
+,E.enemy_name
+,value
+FROM Event
+INNER JOIN Player AS P ON P.Id = entity1_id
+INNER JOIN Enemy AS E on entity2_id = E.id
+WHERE event_type = 'player_with_enemy';
+#What we have as SQL query
+SELECT
+P.id
+,P.player_name
+,CASE WHEN value = 'Defeated' THEN COUNT(timestamp) END AS EnemiesDeafeted
+,CASE WHEN value = 'Captured' THEN COUNT(timestamp) END AS EnemiesCaptured
+,CASE WHEN value = 'Escaped' THEN COUNT(timestamp) END AS TimesEscaped
+FROM Event
+INNER JOIN Player AS P ON P.Id = entity1_id
+INNER JOIN Enemy AS E on entity2_id = E.id
+WHERE event_type = 'player_with_enemy'
+GROUP BY P.id, P.player_name
