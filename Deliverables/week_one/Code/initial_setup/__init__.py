@@ -1,4 +1,5 @@
 # Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
+
 table_creation_statements = [
     """CREATE TABLE SpecialEvent
     (
