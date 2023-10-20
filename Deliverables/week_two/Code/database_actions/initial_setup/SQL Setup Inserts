@@ -1,0 +1,105 @@
+#Marcell Dorkó (6326607)  and Jakub Suszwedyk (6310933)
+INSERT INTO ActionHouse(action_house_name, buy_modifier, sell_modifier)
+VALUES('RaciborzMarket', 5, 10)
+     ,('WarszawaMarket', 4, 5)
+     ,('CiechanowMarket', 2, 6)
+     ,('TorunMarket', 3, 8)
+     ,('TczewMarket', 5, 10);
+
+INSERT INTO Item(item_name, item_category, cost)
+VALUES('Hoe Blueprint', 3, 128)
+,('Wooden Armor', 2, 128)
+,('Torch', 4, 128)
+,('Wooden Spear', 3, 128)
+,('Wooden Hammer', 3, 128);
+
+INSERT INTO Skin(skin_name, item_id)
+VALUES('Base', 2)
+,('Ruby', 5)
+,('Green', 6)
+,('Wood', 9)
+,('Camouflage', 11);
+
+
+INSERT INTO Economy(coin_value)
+VALUES(1);
+
+INSERT INTO Npc(NPC_NAME, NPC_TYPE, NPC_ROLE, LOCATION)
+VALUES('Marek','Magic','Trainer',21)
+,('Zbyszek','Magic','Trainer',37)
+,('Krzysio','Magic','Trainer',652)
+,('Filipek','Magic','Trainer',321)
+,('Karolak','Tomasz','Actor',2137);
+
+INSERT INTO Tables(table_name)
+VALUES('Action House')
+,('Player')
+,('NPC')
+,('Guild')
+,('Team');
+
+INSERT INTO Inventory(owner_id, owner_table_id)
+VALUES(1,1)
+,(2,1)
+,(1,2)
+,(3,1)
+,(5,1);
+
+INSERT INTO InventoryXItem(INVENTORY_ID, ITEM_ID, IS_EQUIPPED, COUNT)
+VALUES(1,2,2,1)
+,(1,5,2,1)
+,(2,5,2,2)
+,(3,9,2,2)
+,(3,5,25,2)
+,(3,10,2,2);
+
+INSERT INTO EquippedSkin(skin_id, inventory_x_item_id)
+VALUES(12,19)
+,(12,19)
+,(15,21)
+,(12,23)
+,(13,24);
+
+INSERT INTO Item(ITEM_NAME, ITEM_CATEGORY, COST)
+VALUES('Wood', 6, 12)
+,('Copper', 6, 120)
+,('Iron', 6, 150)
+,('Gold Bar', 6, 500)
+,('Blueprint one', 1, 500)
+,('Blueprint two', 1, 500)
+,('Blueprint three', 1, 120);
+
+INSERT INTO BlueprintXItemNeeded(blueprint_item_id, item_needed_id)
+VALUES(5, 10)
+,(2, 11)
+,(5, 14)
+,(5, 17)
+,(2, 14);
+
+INSERT INTO Crafting(blueprint_item_id, result_item_id)
+VALUES(27,29)
+,(30,32)
+,(32,45)
+,(34,41)
+,(35,44);
+
+INSERT INTO Achievement( achievement_name)
+VALUES('First step')
+,('You won!')
+,('Second step')
+,('Moving forward')
+,('Settling down');
+
+INSERT INTO Talent(TALENT_NAME)
+VALUES('Funny')
+,('Resilient')
+,('Hard to break')
+,('Early bird')
+,('Focused');
+
+INSERT INTO Ability(ABILITY_NAME)
+VALUES('Pickpocket')
+,('Archery')
+,('Lockpicking')
+,('Singing')
+,('Medicine');
