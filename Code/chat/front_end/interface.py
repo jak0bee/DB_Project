@@ -31,7 +31,7 @@ app.title("Game Chat")
 app.minsize(800, 600)
 
 # Sidebar for conversations
-sidebar = tk.Listbox(app)
+sidebar = tk.Listbox(app, bg='#1C1C1C')
 sidebar.pack(side=tk.LEFT, fill=tk.BOTH)
 
 # Chat area
@@ -61,7 +61,7 @@ chat_text.bind("<T>", received_message('Aniusia', 'Nie wiem!!!'))
 input_frame = tk.Frame(app)
 input_frame.pack(padx=20, pady=(0, 20), fill=tk.X)
 
-message_entry = tk.Entry(input_frame, width=50)
+message_entry = tk.Entry(input_frame, width=50, bg='#1C1C1C')
 message_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
 send_button_image = tk.PhotoImage(file='../../../Resources/images/send_icon.png')
