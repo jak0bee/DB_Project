@@ -83,13 +83,6 @@ table_creation_statements = [
         FOREIGN KEY (reward_id) REFERENCES Reward (id),
         FOREIGN KEY (objective_id) REFERENCES Objective (id)
     )""",
-    """CREATE TABLE TeamRole
-    (
-        id             SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        team_role_name VARCHAR(30) NOT NULL UNIQUE,
-        team_id        SMALLINT    NOT NULL,
-        FOREIGN KEY (team_id) REFERENCES Team (id)
-    )""",
     """CREATE TABLE Tables
     (
         id         SMALLINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -153,7 +146,7 @@ table_creation_statements = [
         result_item_id    SMALLINT NOT NULL,
         FOREIGN KEY (blueprint_item_id) REFERENCES Item (id),
         FOREIGN KEY (result_item_id) REFERENCES Item (id)
-    
+
     )""",
     """CREATE TABLE Skin
     (
@@ -219,14 +212,6 @@ table_creation_statements = [
         date           DATETIME NOT NULL,
         FOREIGN KEY (achievement_id) REFERENCES Achievement (id),
         FOREIGN KEY (player_id) REFERENCES Player (id)
-    )""",
-    """CREATE TABLE TeamXPlayerXRole
-    (
-        id           SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        player_id    SMALLINT NOT NULL,
-        team_role_id SMALLINT NOT NULL,
-        FOREIGN KEY (player_id) REFERENCES Player (id),
-        FOREIGN KEY (team_role_id) REFERENCES TeamRole (id)
     )""",
     """CREATE TABLE ObjectiveXQuest
     (

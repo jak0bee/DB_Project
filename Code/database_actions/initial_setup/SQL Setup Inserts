@@ -81,3 +81,24 @@ VALUES(27,29)
 ,(32,45)
 ,(34,41)
 ,(35,44);
+
+INSERT INTO Achievement( achievement_name)
+VALUES('First step')
+,('You won!')
+,('Second step')
+,('Moving forward')
+,('Settling down');
+
+INSERT INTO Talent(TALENT_NAME)
+VALUES('Funny')
+,('Resilient')
+,('Hard to break')
+,('Early bird')
+,('Focused');
+
+INSERT INTO Ability(ABILITY_NAME)
+VALUES('Pickpocket')
+,('Archery')
+,('Lockpicking')
+,('Singing')
+,('Medicine');
