@@ -1,3 +1,7 @@
-# DB_Project
-link for the schema:
-https://lucid.app/lucidchart/28275b62-5619-436c-8871-713715f2d3d2/edit?viewport_loc=-1824%2C-1283%2C2466%2C1211%2C0_0&invitationId=inv_fea898db-f5c8-438e-a51c-cf6fd3901a91
+# Databases project 
+Made by Marcell Dokró (6326607) and Jakub Suszwedyk (6310933). Available at github at: https://github.com/jak0bee/DB_Project
+## Structure
+
+- `Code`: Code that we developed during our project, not separated by week or deliverable.
+- `Deliverables`: Code and other data that we developed, separated by week, contains the code copied from the 'Code' folder and our reports and PBI dashboard.
+- `Resources`: Folder with resources used by our code including the provided data generation class and generated files.
