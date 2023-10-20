@@ -52,8 +52,6 @@ def load_csv_to_list(file_name, entity_type):
         Exceptions:
         FileNotFoundError: Raised if the file specified by file_name is not found.
         Exception: Catches all other exceptions and prints an error message.
-
-
     """
     loaded_list = []
     loaded_list_second_column = []
