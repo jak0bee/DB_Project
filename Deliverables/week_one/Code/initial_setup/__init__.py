@@ -124,15 +124,6 @@ table_creation_statements = [
         item_category    VARCHAR(30) NOT NULL,
         cost             SMALLINT NOT NULL DEFAULT 0
     )""",
-    """CREATE TABLE ItemXItemEffect
-    (
-        id             SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        item_id        SMALLINT,
-        item_effect_id SMALLINT,
-        modifier       SMALLINT,
-        FOREIGN KEY (item_id) REFERENCES Item (id),
-        FOREIGN KEY (item_effect_id) REFERENCES ItemEffect (id)
-    )""",
     """CREATE TABLE BlueprintXItemNeeded
     (
         id                SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
